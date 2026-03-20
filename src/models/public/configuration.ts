@@ -29,6 +29,11 @@ export interface Configuration extends InteractionOptions {
   maxLines: number | "auto";
   textWrap: boolean;
   defaultBubbleColor: string;
+  
+  /**
+   * An array of color strings to automatically apply to bubbles without a specific `bubbleColor`.
+   */
+  colorPalette?: string[];
 
   // font
   fontSize: number;

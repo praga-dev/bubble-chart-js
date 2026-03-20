@@ -150,12 +150,26 @@ export function renderChart(config: Configuration) {
    * If a property is provided, it retains its original value.
    */
   function getDefaultValues(item: DataItemInfo, config: Configuration) {
+    // Determine Bubble Color
+    // 1. Try item's specific bubbleColor
+    // 2. Try picking from colorPalette if available based on index/order
+    // 3. Fallback to defaultBubbleColor
+    let finalBubbleColor = config.defaultBubbleColor ?? "#3498db";
+    if (item.bubbleColor) {
+      finalBubbleColor = item.bubbleColor;
+    } else if (config.colorPalette && config.colorPalette.length > 0) {
+      // Use the index of the item in the sortedData array to pick a color
+      const index = sortedData.findIndex(d => d.label === item.label && d.value === item.value);
+      const colorIndex = index >= 0 ? index : 0;
+      finalBubbleColor = config.colorPalette[colorIndex % config.colorPalette.length];
+    }
+
     return {
       // Bubble properties
       x: item.x,
       y: item.y,
       radius: Math.max(item.radius || 0, config.minRadius || 10), // Ensure a minimum valid radius
-      bubbleColor: item.bubbleColor ?? config.defaultBubbleColor ?? "#3498db",
+      bubbleColor: finalBubbleColor,
       borderColor: item.borderColor ?? "black",
       borderThickness: Math.max(item.borderThickness ?? 0.25, 0), // Ensure non-negative thickness
       opacity:
@@ -204,9 +218,36 @@ export function renderChart(config: Configuration) {
     }
   }
 
+  const handleMouseMoveEvent = (event: MouseEvent) => {
+    if (animationFrameId) return; // Prevent excessive calls
+    animationFrameId = requestAnimationFrame(() => {
+      handleMouseMove(event, sortedData, canvas as HTMLCanvasElement, tooltip, config);
+      animationFrameId = null; // Reset after execution
+    });
+  };
+
+  const handleClickEvent = (event: MouseEvent) => {
+    if (clickFrameId) return; // Prevent multiple executions in a frame
+    clickFrameId = requestAnimationFrame(() => {
+      onBubbleClickEventHandler(event, sortedData, canvas as HTMLCanvasElement, config);
+      clickFrameId = null; // Reset after execution
+    });
+  };
+
+  let resizeObserver: ResizeObserver | null = null;
   if (config.isResizeCanvasOnWindowSizeChange) {
-    resizeCanvas(); // Initial resize
-    window.addEventListener("resize", resizeCanvas); // Resize on window resize
+    const container = document.getElementById(config.canvasContainerId);
+    if (container && typeof ResizeObserver !== "undefined") {
+      resizeObserver = new ResizeObserver(() => {
+        // Debounce or directly call
+        requestAnimationFrame(() => resizeCanvas());
+      });
+      resizeObserver.observe(container);
+    } else {
+      // Fallback
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+    }
   }
 
   // Initial draw
@@ -217,24 +258,58 @@ export function renderChart(config: Configuration) {
   if (config.showToolTip) {
     tooltip = createTooltipElement(config);
   }
+  
   let animationFrameId: number | null = null;
-  canvas.addEventListener("mousemove", (event) => {
-    if (animationFrameId) return; // Prevent excessive calls
-    animationFrameId = requestAnimationFrame(() => {
-      handleMouseMove(event, sortedData, canvas, tooltip, config);
-      animationFrameId = null; // Reset after execution
-    });
-  });
+  canvas.addEventListener("mousemove", handleMouseMoveEvent);
 
+  let clickFrameId: number | null = null; // Track animation frame
   if (config.onBubbleClick) {
-    let clickFrameId: number | null = null; // Track animation frame
-    canvas.addEventListener("click", (event) => {
-      if (clickFrameId) return; // Prevent multiple executions in a frame
-
-      clickFrameId = requestAnimationFrame(() => {
-        onBubbleClickEventHandler(event, sortedData, canvas, config);
-        clickFrameId = null; // Reset after execution
-      });
-    });
+    canvas.addEventListener("click", handleClickEvent);
   }
+
+  // Define control methods
+  const destroy = () => {
+    if (resizeObserver) {
+      resizeObserver.disconnect();
+      resizeObserver = null;
+    }
+    
+    if (config.isResizeCanvasOnWindowSizeChange) {
+      window.removeEventListener("resize", resizeCanvas);
+    }
+    if (canvas) {
+      canvas.removeEventListener("mousemove", handleMouseMoveEvent);
+      canvas.removeEventListener("click", handleClickEvent);
+      
+      // Remove canvas from DOM
+      const parent = canvas.parentElement;
+      if (parent) {
+        parent.removeChild(canvas);
+      }
+    }
+    
+    if (tooltip && tooltip.parentElement) {
+      tooltip.parentElement.removeChild(tooltip);
+    }
+    
+    // Nullify references
+    canvas = null;
+    tooltip = null;
+  };
+
+  const update = (newData: any[]) => {
+    // We update the config with new data, and re-render the chart by
+    // essentially destroying the old one and rendering a new one over it,
+    // although a purely canvas-clearing update is slightly more performant.
+    // Given the architecture, recreating it ensures all states are clean.
+    destroy();
+    config.data = newData;
+    return renderChart(config);
+  };
+
+  return {
+    destroy,
+    update,
+    // Add additional instance methods here later, like exportPNG
+  };
 }

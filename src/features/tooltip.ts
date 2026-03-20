@@ -135,7 +135,7 @@ export function handleMouseMove(
   if (hoveredItem) {
     const hoverCursor = config?.cursorType || "pointer";
     canvas.style.cursor = hoverCursor;
-    updateTooltip(event, hoveredItem, canvas, tooltip);
+    updateTooltip(event, hoveredItem, canvas, tooltip, config);
   } else {
     canvas.style.cursor = "default";
     if (tooltip) {
@@ -177,12 +177,13 @@ function updateTooltip(
   event: MouseEvent,
   hovered: DataItemInfo | null,
   canvas: HTMLCanvasElement,
-  tooltip: HTMLDivElement
+  tooltip: HTMLDivElement,
+  config: Configuration
 ) {
   if (hovered && hovered.value && canvas && tooltip) {
     canvas.style.cursor = cursor;
     tooltip.style.display = "block";
-    tooltip.innerHTML = getToolTipData(hovered);
+    tooltip.innerHTML = getToolTipData(hovered, config);
 
     // Get the correct position relative to the canvas
     const canvasRect = canvas.getBoundingClientRect();
@@ -197,17 +198,26 @@ function updateTooltip(
   }
 }
 
-function getToolTipData(data: DataItemInfo): string {
+function getToolTipData(data: DataItemInfo, config: Configuration): string {
   if (!data) return "";
+  
+  // 1. Use Formatter Function if provided
+  if (config.tooltipOptions && typeof config.tooltipOptions.formatter === 'function') {
+    return config.tooltipOptions.formatter(data);
+  }
+
+  // 2. Use toolTipConfig.tooltipFormattedData
   const toolTipText = data.toolTipConfig?.tooltipText?.trim();
   if (toolTipText) {
     return `<div>${toolTipText}</div>`;
   }
 
+  // 3. Use default Label + Value
   const label = data.label?.trim();
   if (label) {
     return `<div>${label}<br>Value: ${data.value}</div>`;
   }
 
+  // 4. Use Value only
   return `<div>${data.value}</div>`;
 }

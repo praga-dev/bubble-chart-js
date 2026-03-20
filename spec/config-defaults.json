@@ -1,0 +1,16 @@
+{
+  "specVersion": "1.0",
+  "defaultBubbleColor": "#3498DB",
+  "defaultFontColor": "#ffffff",
+  "minRadius": 10,
+  "maxLines": "auto",
+  "textWrap": true,
+  "fontSize": 14,
+  "defaultFontFamily": "Arial",
+  "showTooltip": true,
+  "enableResize": true,
+  "borderThickness": 0.25,
+  "borderColor": "#000000",
+  "opacity": 1.0,
+  "canvasPadding": 5
+}

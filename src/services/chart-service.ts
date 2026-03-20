@@ -1,30 +1,37 @@
-import { renderChart } from "../core/renderer";
-import { Configuration } from "../models/public/configuration";
-import { mergeConfig } from "../utils/config";
+import { Configuration } from '../models/public/configuration';
+import { mergeConfig } from '../utils/config';
+import { orchestrateChart, ChartInstance } from '../orchestration/chart-orchestrator';
 
 /**
- * Initializes the chart, but stops execution if no valid data is provided.
+ * Initializes the chart by merging config with defaults and orchestrating rendering.
+ *
+ * This is the bridge between the Public API (Layer 1) and the Orchestration layer (Layer 2).
  */
-export function initializeChart(
+export function initializeChartService(
   config: Partial<Configuration> = {}
-): Configuration | undefined {
+): { config: Configuration; instance: ChartInstance } | undefined {
   if (!config) {
-    console.error("Configuration is not valid. Chart initialization aborted.");
+    console.error('Configuration is not valid. Chart initialization aborted.');
     return;
   }
 
   if (!config.data || config.data.length === 0) {
-    console.error("No valid data provided. Chart initialization aborted.");
+    console.error('No valid data provided. Chart initialization aborted.');
     return;
   }
 
   const safeConfig = {
-    canvasContainerId: config.canvasContainerId ?? "chart-container",
+    canvasContainerId: config.canvasContainerId ?? 'chart-container',
     data: config.data ?? [],
     ...config,
   };
 
   const finalConfig = mergeConfig(safeConfig);
-  renderChart(finalConfig);
-  return finalConfig;
+  const instance = orchestrateChart(finalConfig);
+  if (!instance) return undefined;
+
+  return {
+    config: finalConfig,
+    instance,
+  };
 }

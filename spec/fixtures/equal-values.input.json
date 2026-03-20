@@ -1,0 +1,11 @@
+{
+  "specVersion": "1.0",
+  "width": 800,
+  "height": 600,
+  "data": [
+    { "label": "A", "value": 50 },
+    { "label": "B", "value": 50 },
+    { "label": "C", "value": 50 },
+    { "label": "D", "value": 50 }
+  ]
+}
