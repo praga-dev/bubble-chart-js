@@ -1,19 +1,34 @@
-import { renderChart } from "../../core/renderer";
-import { initializeChart } from "../../services/chart-service";
-import { Configuration } from "./configuration";
+import { Configuration } from './configuration';
+import { initializeChartService } from '../../services/chart-service';
+import { ChartInstance } from '../../orchestration/chart-orchestrator';
 
 export class BubbleChart {
   configuration!: Configuration;
-  constructor(config: Configuration) {
-    const configData = initializeChart(config);
-    if (!configData) return; // the logs are handled by initializeChart TODO add log/error-handler service;
+  private instance: ChartInstance | undefined;
 
-    this.configuration = configData;
+  constructor(config: Partial<Configuration>) {
+    const initResult = initializeChartService(config);
+    if (!initResult) return;
+
+    this.configuration = initResult.config;
+    this.instance = initResult.instance;
   }
 
-  render(): void {
-    if (this.configuration) {
-      renderChart(this.configuration);
+  /**
+   * Destroys the chart by removing canvas elements and event listeners.
+   */
+  destroy(): void {
+    if (this.instance) {
+      this.instance.destroy();
+    }
+  }
+
+  /**
+   * Updates the chart with new data.
+   */
+  update(newData: any[]): void {
+    if (this.instance) {
+      this.instance = this.instance.update(newData);
     }
   }
 }

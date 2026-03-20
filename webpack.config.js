@@ -5,7 +5,7 @@ const commonConfig = {
   entry: "./src/index.ts",
   target: "web",
   resolve: {
-    extensions: [".ts", ".js"],
+    extensions: [".ts", ".js", ".json"],
   },
   module: {
     rules: [

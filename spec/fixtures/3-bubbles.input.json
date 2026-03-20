@@ -1,0 +1,10 @@
+{
+  "specVersion": "1.0",
+  "width": 800,
+  "height": 600,
+  "data": [
+    { "label": "Alpha", "value": 100 },
+    { "label": "Beta", "value": 50 },
+    { "label": "Gamma", "value": 25 }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "specVersion": "1.0",
+  "width": 800,
+  "height": 600,
+  "data": [
+    { "label": "Item 1", "value": 100 },
+    { "label": "Item 2", "value": 90 },
+    { "label": "Item 3", "value": 80 },
+    { "label": "Item 4", "value": 70 },
+    { "label": "Item 5", "value": 60 },
+    { "label": "Item 6", "value": 50 },
+    { "label": "Item 7", "value": 40 },
+    { "label": "Item 8", "value": 30 },
+    { "label": "Item 9", "value": 20 },
+    { "label": "Item 10", "value": 10 }
+  ]
+}

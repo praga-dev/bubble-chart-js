@@ -64,6 +64,12 @@ export interface TooltipOptions {
    */
   backgroundColor?: string;
 
+  /**
+   * A function that formats the tooltip content. If provided, this overrides default rendering.
+   * Return a string (can be HTML) to display inside the tooltip for the hovered item.
+   */
+  formatter?: (item: any) => string;
+
   /* 🖌 Styling */
   /**
    * Border color in CSS format
