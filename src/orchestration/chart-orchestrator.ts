@@ -266,7 +266,7 @@ export class ChartOrchestrator {
     const newBubbles: BubbleState[] = [];
 
     effectiveData.forEach((item, i) => {
-      const existing = existingById.get(item.id);
+      const existing = existingById.get(item.id!);
       if (existing) {
         // Update fields
         existing.label  = item.label;
@@ -332,7 +332,7 @@ export class ChartOrchestrator {
 
   private createBubbleState(item: DataItem, index: number, config: Configuration): BubbleState {
     return {
-      id:     item.id,
+      id:     item.id!,
       label:  item.label,
       value:  item.value,
       color:  this.resolveColor(item, index, config),

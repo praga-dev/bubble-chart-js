@@ -1,17 +1,14 @@
 /**
  * DataItem — public data model for a single bubble.
  *
- * V2 BREAKING CHANGE: `id` is now required.
- * If id is missing, initializeChart() throws synchronously before any render.
- *
- * Migration:
- *   Option A (recommended): { id: "revenue", label: "Revenue", value: 450 }
- *   Option B (derive from label, only if labels are unique and stable):
- *     data.map(d => ({ ...d, id: d.label }))
+ * `id` is optional — if omitted, it is auto-derived at init time:
+ *   - Falls back to `label` if all labels are unique across the dataset.
+ *   - Falls back to `label+value` (e.g. "Chrome65") if labels are not unique.
+ * Providing an explicit `id` is recommended for stable reconciliation on chart.update().
  */
 export interface DataItem {
-  /** REQUIRED in V2. Enables stable reconciliation on chart.update(). */
-  id:           string;
+  /** Optional. Enables stable reconciliation on chart.update(). Auto-derived from label or label+value if omitted. */
+  id?:          string;
   label:        string;
   value:        number;
   bubbleColor?: string;

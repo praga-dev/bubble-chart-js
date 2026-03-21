@@ -25,15 +25,28 @@ export function validateConfig(config: Configuration): boolean {
     return false;
   }
 
-  // V2: id is required — throw synchronously, no partial render
-  config.data.forEach((item: DataItem, index: number) => {
-    if (!item.id || typeof item.id !== 'string' || item.id.trim() === '') {
-      throw new Error(
-        `${PKG}: DataItem at index ${index} is missing required field 'id'.\n` +
-        `See migration guide: https://github.com/Praga-Dev/bubbleChartJS/blob/main/MIGRATION.md`
-      );
-    }
-  });
+  // Auto-derive id if missing: prefer label, fall back to label+value if labels are not unique
+  const missingId = config.data.some(
+    (item: DataItem) => !item.id || typeof item.id !== 'string' || item.id.trim() === ''
+  );
+  if (missingId) {
+    const labels = config.data.map((item: DataItem) => item.label);
+    const labelsUnique = new Set(labels).size === labels.length;
+    let warned = false;
+    config.data.forEach((item: DataItem) => {
+      if (!item.id || typeof item.id !== 'string' || item.id.trim() === '') {
+        item.id = labelsUnique ? item.label : `${item.label}${item.value}`;
+        if (!warned) {
+          console.warn(
+            `${PKG}: DataItem is missing 'id'. Auto-derived from ` +
+            (labelsUnique ? '`label`' : '`label+value`') +
+            `. Provide explicit ids for stable chart.update() reconciliation.`
+          );
+          warned = true;
+        }
+      }
+    });
+  }
 
   return true;
 }

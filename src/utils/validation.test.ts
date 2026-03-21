@@ -48,64 +48,79 @@ describe('validateConfig', () => {
     });
   });
 
-  describe('id validation — throws synchronously', () => {
-    it('throws when a DataItem is missing id field entirely', () => {
+  describe('id auto-derivation', () => {
+    let warnSpy: jest.SpyInstance;
+    beforeEach(() => { warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {}); });
+    afterEach(() => { warnSpy.mockRestore(); });
+
+    it('auto-derives id from label when labels are unique', () => {
       const config = makeValidConfig({
         data: [
-          { label: 'NoId', value: 100 } as unknown as DataItem,
+          { label: 'Alpha', value: 100 } as unknown as DataItem,
+          { label: 'Beta',  value: 50  } as unknown as DataItem,
         ],
       });
-      expect(() => validateConfig(config)).toThrow();
+      validateConfig(config);
+      expect(config.data[0].id).toBe('Alpha');
+      expect(config.data[1].id).toBe('Beta');
     });
 
-    it('throws when a DataItem has empty string id', () => {
+    it('auto-derives id from label+value when labels are not unique', () => {
       const config = makeValidConfig({
         data: [
-          { id: '', label: 'Empty', value: 100 },
+          { label: 'Item', value: 100 } as unknown as DataItem,
+          { label: 'Item', value: 50  } as unknown as DataItem,
         ],
       });
-      expect(() => validateConfig(config)).toThrow();
+      validateConfig(config);
+      expect(config.data[0].id).toBe('Item100');
+      expect(config.data[1].id).toBe('Item50');
     });
 
-    it('throws when a DataItem has whitespace-only id', () => {
+    it('emits a console.warn once when any id is missing', () => {
       const config = makeValidConfig({
         data: [
-          { id: '   ', label: 'Spaces', value: 100 },
+          { label: 'A', value: 1 } as unknown as DataItem,
+          { label: 'B', value: 2 } as unknown as DataItem,
+          { label: 'C', value: 3 } as unknown as DataItem,
         ],
       });
-      expect(() => validateConfig(config)).toThrow();
+      validateConfig(config);
+      expect(warnSpy).toHaveBeenCalledTimes(1);
     });
 
-    it('throws on first occurrence — error message contains index 0 for first bad item', () => {
-      const config = makeValidConfig({
-        data: [
-          { label: 'NoId', value: 100 } as unknown as DataItem,
-          { id: 'valid', label: 'Valid', value: 50 },
-        ],
-      });
-      expect(() => validateConfig(config)).toThrow(/index 0/);
+    it('does not warn when all items have explicit ids', () => {
+      const config = makeValidConfig();
+      validateConfig(config);
+      expect(warnSpy).not.toHaveBeenCalled();
     });
 
-    it('throws on first occurrence — error message contains index 1 when first item is valid', () => {
+    it('auto-derives only items missing id, leaves explicit ids untouched', () => {
       const config = makeValidConfig({
         data: [
-          { id: 'valid', label: 'Valid', value: 50 },
-          { label: 'NoId', value: 100 } as unknown as DataItem,
+          { id: 'explicit', label: 'Alpha', value: 100 },
+          { label: 'Beta', value: 50 } as unknown as DataItem,
         ],
       });
-      expect(() => validateConfig(config)).toThrow(/index 1/);
+      validateConfig(config);
+      expect(config.data[0].id).toBe('explicit');
+      expect(config.data[1].id).toBe('Beta');
     });
 
-    it('throws on first bad item even when later items are also bad', () => {
+    it('auto-derives id from label when id is empty string', () => {
       const config = makeValidConfig({
-        data: [
-          { label: 'Bad0', value: 10 } as unknown as DataItem,
-          { label: 'Bad1', value: 20 } as unknown as DataItem,
-          { label: 'Bad2', value: 30 } as unknown as DataItem,
-        ],
+        data: [{ id: '', label: 'Empty', value: 10 }],
       });
-      // Should throw at index 0, not index 1 or 2
-      expect(() => validateConfig(config)).toThrow(/index 0/);
+      validateConfig(config);
+      expect(config.data[0].id).toBe('Empty');
+    });
+
+    it('auto-derives id from label when id is whitespace-only', () => {
+      const config = makeValidConfig({
+        data: [{ id: '   ', label: 'Spaces', value: 10 }],
+      });
+      validateConfig(config);
+      expect(config.data[0].id).toBe('Spaces');
     });
   });
 
