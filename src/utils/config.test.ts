@@ -79,6 +79,36 @@ describe('normalizeConfig', () => {
       expect(result.render!.theme).toBe('glass');
     });
 
+    it('passes render.glassPerformanceHint through', () => {
+      const result = normalizeConfig(baseInput({
+        render: { theme: 'glass', glassPerformanceHint: 'full' },
+      }));
+      expect(result.render!.glassPerformanceHint).toBe('full');
+    });
+
+    it('passes render.glassOptions through unchanged', () => {
+      const glassOptions = { glowIntensity: 0.3, blurRadius: 8 };
+      const result = normalizeConfig(baseInput({
+        render: { theme: 'glass', glassPerformanceHint: 'full', glassOptions },
+      }));
+      expect(result.render!.glassOptions).toEqual(glassOptions);
+    });
+
+    it('omits glassOptions from render when not provided (no default injected)', () => {
+      const result = normalizeConfig(baseInput({
+        render: { theme: 'glass', glassPerformanceHint: 'safe' },
+      }));
+      expect(result.render!.glassOptions).toBeUndefined();
+    });
+
+    it('partial glassOptions — only glowIntensity provided — passes through as-is', () => {
+      const result = normalizeConfig(baseInput({
+        render: { theme: 'glass', glassOptions: { glowIntensity: 0.8 } },
+      }));
+      expect(result.render!.glassOptions!.glowIntensity).toBe(0.8);
+      expect(result.render!.glassOptions!.blurRadius).toBeUndefined();
+    });
+
     it('passes interaction.hoverScale through', () => {
       const result = normalizeConfig(baseInput({
         interaction: { hoverScale: 1.5 },

@@ -76,6 +76,9 @@ export function normalizeConfig(
     mode:                renderMode,
     theme:               renderTheme,
     glassPerformanceHint: glassHint,
+    ...(userConfig.render?.glassOptions !== undefined
+      ? { glassOptions: userConfig.render.glassOptions }
+      : {}),
   };
 
   const interaction: InteractionConfig = {

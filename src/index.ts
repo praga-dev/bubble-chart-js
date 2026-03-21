@@ -6,7 +6,7 @@ import { ChartOrchestrator } from './orchestration/chart-orchestrator';
 export { BubbleChart };
 export type { DataItem, Configuration };
 export type { SimulationSnapshot } from './models/internal/simulation-state';
-export type { RenderLayer, UnsubscribeFn, EasingFn } from './models/public/configuration';
+export type { RenderLayer, UnsubscribeFn, EasingFn, GlassOptions } from './models/public/configuration';
 export type { LayerHook, LayerHookFn, DrawContext, RenderFrameState } from './interfaces/i-renderer';
 
 /**
@@ -22,10 +22,9 @@ export { topN } from './utils/top-n';
 /**
  * Creates and renders a new bubble chart.
  *
- * V2 BREAKING CHANGE: DataItem.id is now required.
- * See migration guide: https://github.com/Praga-Dev/bubbleChartJS/blob/main/MIGRATION.md
+ * DataItem.id is optional — auto-derived from label or label+value if omitted.
+ * Providing explicit ids is recommended for stable chart.update() reconciliation.
  *
- * @throws Error if any DataItem is missing the required `id` field.
  * @throws Error if canvasContainerId element is not found.
  *
  * @example

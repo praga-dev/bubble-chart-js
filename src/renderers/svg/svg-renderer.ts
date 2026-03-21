@@ -215,32 +215,57 @@ export class SvgRenderer implements IRenderer {
     const useBlur = this.config.render?.glassPerformanceHint === 'full';
 
     for (const b of bubbles) {
-      const r      = b.renderRadius * b.renderScale;
-      const circle = document.createElementNS(NS, 'circle') as SVGCircleElement;
-      circle.setAttribute('cx',      String(b.renderX));
-      circle.setAttribute('cy',      String(b.renderY));
-      circle.setAttribute('r',       String(r * 0.95));
-      circle.setAttribute('fill',    b.color);
-      circle.setAttribute('opacity', '0.4');
+      const r = b.renderRadius * b.renderScale;
+
+      const glassOpts   = this.config.render?.glassOptions;
+      const intensity   = Math.min(1, Math.max(0, glassOpts?.glowIntensity ?? 0.65));
+      const outerStdDev = glassOpts?.blurRadius ?? 12;
+      const innerStdDev = Math.max(2, Math.round(outerStdDev * 0.42));
 
       if (useBlur) {
-        // glassPerformanceHint "full": feGaussianBlur-based glow filter
-        const filterId = `bcjs-blur-${b.color.replace(/[^a-z0-9]/gi, '')}`;
-        if (!this.defsEl.querySelector(`#${filterId}`)) {
-          const filter = document.createElementNS(NS, 'filter') as SVGFilterElement;
-          filter.setAttribute('id', filterId);
-          const blur = document.createElementNS(NS, 'feGaussianBlur') as SVGFEGaussianBlurElement;
-          blur.setAttribute('stdDeviation', '6');
-          filter.appendChild(blur);
-          this.defsEl.appendChild(filter);
+        // glassPerformanceHint "full": double-layer feGaussianBlur bloom halo.
+        // Outer layer bleeds beyond the bubble edge for a visible glow ring.
+        // Inner layer adds warm depth behind the bubble face.
+        for (const [rMult, stdDev, baseOpacity] of [
+          [1.3, outerStdDev, 0.38],   // outer wide bloom
+          [0.9, innerStdDev, 0.55],   // inner tight core glow
+        ] as [number, number, number][]) {
+          const filterId = `bcjs-blur-${b.color.replace(/[^a-z0-9]/gi, '')}-${stdDev}`;
+          if (!this.defsEl.querySelector(`#${filterId}`)) {
+            const filter = document.createElementNS(NS, 'filter') as SVGFilterElement;
+            filter.setAttribute('id', filterId);
+            // Expand filter region so outer bloom is not clipped at bounding box edge
+            filter.setAttribute('x', '-50%');
+            filter.setAttribute('y', '-50%');
+            filter.setAttribute('width',  '200%');
+            filter.setAttribute('height', '200%');
+            const blur = document.createElementNS(NS, 'feGaussianBlur') as SVGFEGaussianBlurElement;
+            blur.setAttribute('stdDeviation', String(stdDev));
+            filter.appendChild(blur);
+            this.defsEl.appendChild(filter);
+          }
+          const circle = document.createElementNS(NS, 'circle') as SVGCircleElement;
+          circle.setAttribute('cx',      String(b.renderX));
+          circle.setAttribute('cy',      String(b.renderY));
+          circle.setAttribute('r',       String(r * rMult));
+          circle.setAttribute('fill',    b.color);
+          circle.setAttribute('opacity', String(+(baseOpacity * intensity).toFixed(3)));
+          circle.setAttribute('filter',  `url(#${filterId})`);
+          ctx.svg.appendChild(circle);
         }
-        circle.setAttribute('filter', `url(#${filterId})`);
       } else {
-        // glassPerformanceHint "safe": CSS drop-shadow, no feGaussianBlur
-        circle.style.filter = `drop-shadow(0 2px 8px ${b.color})`;
+        // glassPerformanceHint "safe": CSS drop-shadow only — no feGaussianBlur.
+        const spread  = Math.round(8 + intensity * 10);
+        const opacity = (0.35 + intensity * 0.25).toFixed(2);
+        const circle  = document.createElementNS(NS, 'circle') as SVGCircleElement;
+        circle.setAttribute('cx',      String(b.renderX));
+        circle.setAttribute('cy',      String(b.renderY));
+        circle.setAttribute('r',       String(r * 0.95));
+        circle.setAttribute('fill',    b.color);
+        circle.setAttribute('opacity', opacity);
+        circle.style.filter = `drop-shadow(0 5px ${spread}px ${b.color}) drop-shadow(0 2px 4px rgba(0,0,0,0.35))`;
+        ctx.svg.appendChild(circle);
       }
-
-      ctx.svg.appendChild(circle);
     }
   }
 

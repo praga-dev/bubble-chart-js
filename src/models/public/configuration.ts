@@ -41,6 +41,21 @@ export interface LayoutConfig {
   physics?:  PhysicsLayoutConfig;
 }
 
+// ── Glass appearance options ───────────────────────────────────────────────
+
+export interface GlassOptions {
+  /**
+   * Glow intensity multiplier (0–1). Scales bloom opacity and blur spread.
+   * 0 = no glow, 1 = maximum glow. Default: 0.65
+   */
+  glowIntensity?: number;
+  /**
+   * stdDeviation for the outer Gaussian blur halo (full mode only).
+   * Higher = softer, wider halo. Default: 12
+   */
+  blurRadius?: number;
+}
+
 // ── Render config ──────────────────────────────────────────────────────────
 
 export interface RenderConfig {
@@ -48,9 +63,11 @@ export interface RenderConfig {
   theme?:                 "flat" | "glass";
   /**
    * Controls whether glass-mode uses expensive filter effects.
-   * "safe" = compatible but lower fidelity; "full" = full GPU compositing.
+   * "safe" = CSS drop-shadow (compatible); "full" = feGaussianBlur bloom (GPU).
    */
   glassPerformanceHint?:  "safe" | "full";
+  /** Fine-tune glass glow appearance. Only applies when theme is "glass". */
+  glassOptions?:          GlassOptions;
 }
 
 // ── Interaction config ─────────────────────────────────────────────────────
