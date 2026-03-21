@@ -1,34 +1,62 @@
-import { Configuration } from './configuration';
-import { initializeChartService } from '../../services/chart-service';
-import { ChartInstance } from '../../orchestration/chart-orchestrator';
+import { DataItem } from './data-item';
+import { RenderLayer, UnsubscribeFn } from './configuration';
+import { SimulationSnapshot } from '../internal/simulation-state';
+import { LayerHook } from '../../interfaces/i-renderer';
+import { ChartOrchestrator } from '../../orchestration/chart-orchestrator';
+import { EventName, EventHandler } from '../../core/event-bus';
 
 export class BubbleChart {
-  configuration!: Configuration;
-  private instance: ChartInstance | undefined;
+  constructor(private readonly orchestrator: ChartOrchestrator) {}
 
-  constructor(config: Partial<Configuration>) {
-    const initResult = initializeChartService(config);
-    if (!initResult) return;
-
-    this.configuration = initResult.config;
-    this.instance = initResult.instance;
+  /**
+   * Subscribe to a chart event. Returns an unsubscribe function.
+   * Subscriptions survive chart.update() — cleared only by chart.destroy() or calling the returned fn.
+   */
+  on<K extends EventName>(event: K, handler: EventHandler<K>): UnsubscribeFn {
+    return this.orchestrator.on(event, handler);
   }
 
   /**
-   * Destroys the chart by removing canvas elements and event listeners.
+   * Synchronous snapshot of the last physics tick.
+   * One allocation per tick while physics runs, zero allocations after settlement.
+   */
+  get simulation(): Readonly<SimulationSnapshot> {
+    return this.orchestrator.simulation;
+  }
+
+  /**
+   * Re-render the chart with new data.
+   * Renderer does NOT change — it was resolved at init.
+   * If data.length crosses the 25 boundary in SVG mode, a warning is emitted.
+   * To switch renderers: chart.destroy() + initializeChart() with new data.
+   */
+  update(newData: DataItem[]): void {
+    this.orchestrator.update(newData);
+  }
+
+  /**
+   * Destroys the chart: stops animation loop, removes DOM elements, clears all subscriptions.
+   * Any UnsubscribeFn held by the developer becomes a no-op after this call.
    */
   destroy(): void {
-    if (this.instance) {
-      this.instance.destroy();
-    }
+    this.orchestrator.destroy();
   }
 
   /**
-   * Updates the chart with new data.
+   * Register a developer layer hook.
+   * @returns Stable hook ID — use to remove with removeLayerHook().
    */
-  update(newData: any[]): void {
-    if (this.instance) {
-      this.instance = this.instance.update(newData);
-    }
+  addLayerHook(hook: Omit<LayerHook, 'id'>): string {
+    return this.orchestrator.addLayerHook(hook);
+  }
+
+  /** Remove a layer hook by its ID. Built-in IDs use "builtin:" prefix. */
+  removeLayerHook(id: string): void {
+    this.orchestrator.removeLayerHook(id);
+  }
+
+  /** Get all registered hooks, optionally filtered by layer. */
+  getLayerHooks(layer?: RenderLayer): ReadonlyArray<LayerHook> {
+    return this.orchestrator.getLayerHooks(layer);
   }
 }

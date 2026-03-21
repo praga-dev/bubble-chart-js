@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 
 /** @type {import('webpack').Configuration} */
 const commonConfig = {
@@ -16,6 +17,14 @@ const commonConfig = {
       },
     ],
   },
+  plugins: [
+    // Required for debug tree-shaking: replaces process.env.NODE_ENV at build time.
+    // With this + Terser, `if (process.env.NODE_ENV !== "production") { ... }` blocks
+    // are eliminated from the production bundle. Without it, debug code ships (but no-ops).
+    new webpack.DefinePlugin({
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV || "production"),
+    }),
+  ],
   optimization: {
     minimize: true,
   },

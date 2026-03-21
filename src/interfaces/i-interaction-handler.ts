@@ -1,33 +1,25 @@
-import { PositionedNode } from '../core/types';
+import { BubbleState } from '../models/internal/bubble-state';
+import { DataItem } from '../models/public/data-item';
+
+export type BubbleClickHandler = (item: DataItem, event: PointerEvent) => void;
+export type BubbleHoverHandler = (item: DataItem | null) => void;
 
 /**
- * IInteractionHandler — Platform abstraction for user input.
- *
- * Implementations:
- *   JS: DOMInteractionHandler (addEventListener, getBoundingClientRect)
- *   Flutter: GestureHandler (GestureDetector, Listener)
+ * IInteractionHandler — manages pointer events on the chart surface.
  */
 export interface IInteractionHandler {
-  /**
-   * Registers a tap/click handler.
-   * @param callback - receives the positioned node that was tapped, or null if background
-   */
-  onTap(callback: (node: PositionedNode | null, event: any) => void): void;
+  /** Attach event listeners to the renderer's DOM element. */
+  mount(element: HTMLElement | SVGElement): void;
 
-  /**
-   * Registers a hover/pointer-move handler.
-   * @param callback - receives the hovered node, or null if no bubble is under the pointer
-   */
-  onHover(callback: (node: PositionedNode | null, event: any) => void): void;
+  /** Update the current bubble positions (called after each render). */
+  updateBubbles(bubbles: ReadonlyArray<BubbleState>): void;
 
-  /**
-   * Hit-tests a point against positioned nodes.
-   * @returns the node under the point, or null
-   */
-  hitTest(x: number, y: number, nodes: PositionedNode[]): PositionedNode | null;
+  /** Register a click handler. Returns unsubscribe fn. */
+  onClick(handler: BubbleClickHandler): () => void;
 
-  /**
-   * Cleans up all registered event listeners.
-   */
+  /** Register a hover handler. Returns unsubscribe fn. */
+  onHover(handler: BubbleHoverHandler): () => void;
+
+  /** Release all event listeners. */
   dispose(): void;
 }

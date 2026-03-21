@@ -1,99 +1,82 @@
+/**
+ * Text measurer interface — platform-specific (canvas, SVG) implementations provided externally.
+ */
+export interface ITextMeasurer {
+  measureText(
+    text:       string,
+    fontSize:   number,
+    fontWeight: number,
+    fontStyle:  string,
+    fontFamily: string
+  ): number;
+}
+
+/**
+ * Splits text into lines that fit within maxWidth.
+ * Respects maxLines limit (or "auto" = unlimited).
+ * Adds "…" ellipsis when text is truncated.
+ */
 export function getWrappedLines(
-  ctx: CanvasRenderingContext2D,
-  text: string,
-  maxLineWidth: number,
-  maxAllowedLines: number | "auto" | undefined,
-  radius: number,
-  fontSize: number = 14, // TODO :  take all default values from constants
+  measurer:   ITextMeasurer,
+  text:       string,
+  maxWidth:   number,
+  maxLines:   number | 'auto',
+  radius:     number,
+  fontSize:   number,
   fontWeight: number = 400,
-  fontStyle: "normal" | "italic" | "oblique" = "normal",
-  fontFamily: string = "Arial",
-  horizontalPadding: number = 0,
-  verticalPadding: number = 5,
-  lineHeightFactor: number = 1.2,
-  maxCharsPerWord: number | undefined = undefined // TODO :  need support
+  fontStyle:  string = 'normal',
+  fontFamily: string = 'Arial'
 ): string[] {
-  const availableHeight = 1.5 * (radius - verticalPadding);
-  const lineHeight = fontSize * lineHeightFactor;
+  if (!text?.trim()) return [];
 
-  const calculatedMaxLines = Math.max(
-    1,
-    Math.floor(availableHeight / lineHeight)
-  );
-
-  const maxLines =
-    maxAllowedLines === "auto" || maxAllowedLines === undefined
-      ? calculatedMaxLines
-      : Math.min(maxAllowedLines, calculatedMaxLines);
-
-  // Adjust max line width by removing horizontal padding
-  maxLineWidth = Math.max(0, maxLineWidth - horizontalPadding * 2);
-
-  // Break text into words
-  const words = text.split(" ");
-
-  let currentLine = "";
+  const words = text.trim().split(/\s+/);
   const lines: string[] = [];
-  let isTruncated = false;
-  let isWordTruncated = false;
-
-  ctx.font = `${fontWeight || ""} ${fontStyle || ""} ${fontSize}px ${fontFamily}`; // Support to optimize the textwrap incase fontweight or fontstyle are applied
-  ctx.imageSmoothingEnabled = true;
-  ctx.imageSmoothingQuality = "high";
+  let currentLine = '';
 
   for (const word of words) {
     const testLine = currentLine ? `${currentLine} ${word}` : word;
+    const testWidth = measurer.measureText(testLine, fontSize, fontWeight, fontStyle, fontFamily);
 
-    const testWidth = ctx.measureText(testLine).width;
-
-    if (testWidth <= maxLineWidth) {
-      currentLine = testLine; // Add word to the current line
+    if (testWidth <= maxWidth) {
+      currentLine = testLine;
     } else {
-      if (currentLine.trim()) lines.push(currentLine); // Save previous line
-      currentLine = word; // Start a new line
-
-      const currentLineWidth = ctx.measureText(currentLine).width;
-
-      // truncate the word
-      if (currentLineWidth > maxLineWidth) {
-        let truncatedText = currentLine;
-
-        while (
-          ctx.measureText(truncatedText + "...").width > maxLineWidth &&
-          truncatedText.length > 0
-        ) {
-          truncatedText = truncatedText.slice(0, -1); // Remove last character until it fits
-        }
-
-        lines.push(truncatedText + "...");
-        isWordTruncated = true;
-        break; // Stop if word truncated
-      }
-    }
-
-    if (lines.length >= maxLines) {
-      isTruncated = true;
-      break; // Stop if we reach the max number of lines
+      if (currentLine) lines.push(currentLine);
+      currentLine = word;
     }
   }
+  if (currentLine) lines.push(currentLine);
 
-  if (currentLine && lines.length < maxLines && !isWordTruncated) {
-    lines.push(currentLine); // Push the last line if space allows
+  // Apply maxLines limit
+  const limit = maxLines === 'auto' ? lines.length : maxLines;
+  if (lines.length <= limit) return lines;
+
+  // Truncate and add ellipsis to last visible line
+  const truncated = lines.slice(0, limit);
+  const lastLine = truncated[limit - 1];
+  let shortened = lastLine;
+  while (
+    shortened.length > 0 &&
+    measurer.measureText(shortened + '…', fontSize, fontWeight, fontStyle, fontFamily) > maxWidth
+  ) {
+    shortened = shortened.slice(0, -1).trimEnd();
   }
+  truncated[limit - 1] = shortened + '…';
+  return truncated;
+}
 
-  // Add "..." if text is truncated
-  if (isTruncated && lines.length > 0) {
-    const lastLine = lines[lines.length - 1];
-    let truncatedText = lastLine;
-
-    while (
-      ctx.measureText(truncatedText + "...").width > maxLineWidth &&
-      truncatedText.length > 0
-    ) {
-      truncatedText = truncatedText.slice(0, -1); // Remove last character until it fits
-    }
-
-    lines[lines.length - 1] = truncatedText + "...";
-  }
-  return lines;
+/**
+ * Computes an appropriate font size for a bubble based on its radius.
+ * Ensures labels remain readable at all scales.
+ */
+export function computeFontSize(
+  radius:          number,
+  baseFontSize:    number = 12,
+  fontWeight:      number = 400,
+  avgCharsPerLine: number = 6
+): number {
+  const weightFactor = fontWeight >= 700 ? 1.25 : fontWeight >= 500 ? 1.1 : 1.0;
+  const maxFontSize = Math.min(radius / avgCharsPerLine, radius / 1.2);
+  let size = Math.min(baseFontSize * weightFactor, maxFontSize, radius * 0.8);
+  size = Math.max(size, Math.max(8, radius / 6));
+  return Math.round(size);
 }
