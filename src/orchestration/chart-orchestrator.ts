@@ -269,9 +269,10 @@ export class ChartOrchestrator {
       const existing = existingById.get(item.id!);
       if (existing) {
         // Update fields
-        existing.label  = item.label;
-        existing.value  = item.value;
-        existing.color  = this.resolveColor(item, i, this.config);
+        existing.label   = item.label;
+        existing.value   = item.value;
+        existing.color   = this.resolveColor(item, i, this.config);
+        existing.opacity = this.resolveOpacity(item, this.config);
         if (item.icon !== undefined) existing.icon = item.icon;
         existing.shadowDirty = true;
         newBubbles.push(existing);
@@ -332,11 +333,12 @@ export class ChartOrchestrator {
 
   private createBubbleState(item: DataItem, index: number, config: Configuration): BubbleState {
     return {
-      id:     item.id!,
-      label:  item.label,
-      value:  item.value,
-      color:  this.resolveColor(item, index, config),
-      icon:   item.icon,
+      id:      item.id!,
+      label:   item.label,
+      value:   item.value,
+      color:   this.resolveColor(item, index, config),
+      opacity: this.resolveOpacity(item, config),
+      icon:    item.icon,
       x:      0, y: 0, radius: 0,
       vx:     0, vy: 0,
       renderX:      0, renderY: 0, renderRadius: 0,
@@ -354,6 +356,12 @@ export class ChartOrchestrator {
     }
     if (config.defaultBubbleColor) return config.defaultBubbleColor;
     return DEFAULT_COLORS[index % DEFAULT_COLORS.length];
+  }
+
+  private resolveOpacity(item: DataItem, config: Configuration): number {
+    // Priority: per-item > bubbleAppearance.opacity > 1 (fully opaque)
+    const raw = item.opacity ?? config.bubbleAppearance?.opacity ?? 1;
+    return Math.min(1, Math.max(0, raw));
   }
 
   private buildSnapshot(): Readonly<SimulationSnapshot> {

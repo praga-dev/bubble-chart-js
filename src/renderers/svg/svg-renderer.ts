@@ -8,14 +8,14 @@ const NS = 'http://www.w3.org/2000/svg';
 const LAYER_ORDER: RenderLayer[] = ['background', 'shadows', 'bubbles', 'text', 'overlay', 'debug'];
 
 export class SvgRenderer implements IRenderer {
-  private svgEl!:     SVGSVGElement;
-  private defsEl!:    SVGDefsElement;
+  private svgEl!: SVGSVGElement;
+  private defsEl!: SVGDefsElement;
   private container!: HTMLElement;
-  private width  = 0;
+  private width = 0;
   private height = 0;
 
   // One <g> per layer
-  private readonly layerGroups  = new Map<RenderLayer, SVGGElement>();
+  private readonly layerGroups = new Map<RenderLayer, SVGGElement>();
   // Hooks per layer, sorted by priority ascending
   private readonly hooksByLayer = new Map<RenderLayer, LayerHook[]>();
 
@@ -27,21 +27,22 @@ export class SvgRenderer implements IRenderer {
 
   mount(container: HTMLElement): void {
     this.container = container;
-    this.width     = container.clientWidth;
-    this.height    = container.clientHeight;
+    this.width = container.clientWidth;
+    this.height = container.clientHeight;
 
     container.style.position = container.style.position || 'relative';
 
     // Create root SVG
     this.svgEl = document.createElementNS(NS, 'svg') as SVGSVGElement;
     Object.assign(this.svgEl.style, {
-      display:  'block',
-      width:    '100%',
-      height:   '100%',
+      display: 'block',
+      width: '100%',
+      height: '100%',
       position: 'absolute',
-      top:      '0',
-      left:     '0',
+      top: '0',
+      left: '0',
       overflow: 'visible',
+      padding: '15px',
     });
     this.svgEl.setAttribute('viewBox', `0 0 ${this.width} ${this.height}`);
 
@@ -61,11 +62,11 @@ export class SvgRenderer implements IRenderer {
 
     // Register built-in hooks
     this.registerBuiltinHook('background', 0, this.drawBackground.bind(this));
-    this.registerBuiltinHook('shadows',    0, this.drawShadows.bind(this));
-    this.registerBuiltinHook('bubbles',    0, this.drawBubbles.bind(this));
-    this.registerBuiltinHook('text',       0, this.drawText.bind(this));
-    this.registerBuiltinHook('overlay',    0, () => {});
-    this.registerBuiltinHook('debug',      0, this.drawDebug.bind(this));
+    this.registerBuiltinHook('shadows', 0, this.drawShadows.bind(this));
+    this.registerBuiltinHook('bubbles', 0, this.drawBubbles.bind(this));
+    this.registerBuiltinHook('text', 0, this.drawText.bind(this));
+    this.registerBuiltinHook('overlay', 0, () => { });
+    this.registerBuiltinHook('debug', 0, this.drawDebug.bind(this));
   }
 
   renderFrame(bubbles: ReadonlyArray<BubbleState>, state: RenderFrameState): void {
@@ -79,7 +80,7 @@ export class SvgRenderer implements IRenderer {
 
   renderLayer(layer: RenderLayer, bubbles: ReadonlyArray<BubbleState>, state: RenderFrameState): void {
     const hooks = this.hooksByLayer.get(layer);
-    const g     = this.layerGroups.get(layer);
+    const g = this.layerGroups.get(layer);
     if (!hooks || !g) return;
 
     // Clear this layer's <g> — hooks rebuild it from scratch each frame
@@ -120,7 +121,7 @@ export class SvgRenderer implements IRenderer {
   }
 
   resize(width: number, height: number): void {
-    this.width  = width;
+    this.width = width;
     this.height = height;
     this.svgEl.setAttribute('viewBox', `0 0 ${width} ${height}`);
   }
@@ -138,7 +139,7 @@ export class SvgRenderer implements IRenderer {
    * enforce the prefix restriction at the type boundary.
    */
   private registerBuiltinHook(layer: RenderLayer, priority: number, fn: LayerHookFn): void {
-    const id   = `builtin:${layer}`;
+    const id = `builtin:${layer}`;
     const hook: LayerHook = { id, layer, priority, fn };
     this.insertHook(hook);
   }
@@ -175,18 +176,18 @@ export class SvgRenderer implements IRenderer {
       grad.setAttribute('id', id);
       grad.setAttribute('cx', '35%');
       grad.setAttribute('cy', '35%');
-      grad.setAttribute('r',  '65%');
+      grad.setAttribute('r', '65%');
 
       const stop1 = document.createElementNS(NS, 'stop') as SVGStopElement;
-      stop1.setAttribute('offset',     '0%');
+      stop1.setAttribute('offset', '0%');
       stop1.setAttribute('stop-color', this.lightenColor(b.color, 0.45));
 
       const stop2 = document.createElementNS(NS, 'stop') as SVGStopElement;
-      stop2.setAttribute('offset',     '60%');
+      stop2.setAttribute('offset', '60%');
       stop2.setAttribute('stop-color', b.color);
 
       const stop3 = document.createElementNS(NS, 'stop') as SVGStopElement;
-      stop3.setAttribute('offset',     '100%');
+      stop3.setAttribute('offset', '100%');
       stop3.setAttribute('stop-color', this.darkenColor(b.color, 0.15));
 
       grad.appendChild(stop1);
@@ -201,11 +202,11 @@ export class SvgRenderer implements IRenderer {
   private drawBackground(ctx: DrawContext, _bubbles: ReadonlyArray<BubbleState>, state: RenderFrameState): void {
     if (!this.config.canvasBackgroundColor?.trim() || !ctx.svg) return;
     const rect = document.createElementNS(NS, 'rect') as SVGRectElement;
-    rect.setAttribute('x',      '0');
-    rect.setAttribute('y',      '0');
-    rect.setAttribute('width',  String(state.width));
+    rect.setAttribute('x', '0');
+    rect.setAttribute('y', '0');
+    rect.setAttribute('width', String(state.width));
     rect.setAttribute('height', String(state.height));
-    rect.setAttribute('fill',   `#${this.config.canvasBackgroundColor}`);
+    rect.setAttribute('fill', `#${this.config.canvasBackgroundColor}`);
     ctx.svg.appendChild(rect);
   }
 
@@ -217,8 +218,8 @@ export class SvgRenderer implements IRenderer {
     for (const b of bubbles) {
       const r = b.renderRadius * b.renderScale;
 
-      const glassOpts   = this.config.render?.glassOptions;
-      const intensity   = Math.min(1, Math.max(0, glassOpts?.glowIntensity ?? 0.65));
+      const glassOpts = this.config.render?.glassOptions;
+      const intensity = Math.min(1, Math.max(0, glassOpts?.glowIntensity ?? 0.65));
       const outerStdDev = glassOpts?.blurRadius ?? 12;
       const innerStdDev = Math.max(2, Math.round(outerStdDev * 0.42));
 
@@ -237,7 +238,7 @@ export class SvgRenderer implements IRenderer {
             // Expand filter region so outer bloom is not clipped at bounding box edge
             filter.setAttribute('x', '-50%');
             filter.setAttribute('y', '-50%');
-            filter.setAttribute('width',  '200%');
+            filter.setAttribute('width', '200%');
             filter.setAttribute('height', '200%');
             const blur = document.createElementNS(NS, 'feGaussianBlur') as SVGFEGaussianBlurElement;
             blur.setAttribute('stdDeviation', String(stdDev));
@@ -245,23 +246,23 @@ export class SvgRenderer implements IRenderer {
             this.defsEl.appendChild(filter);
           }
           const circle = document.createElementNS(NS, 'circle') as SVGCircleElement;
-          circle.setAttribute('cx',      String(b.renderX));
-          circle.setAttribute('cy',      String(b.renderY));
-          circle.setAttribute('r',       String(r * rMult));
-          circle.setAttribute('fill',    b.color);
-          circle.setAttribute('opacity', String(+(baseOpacity * intensity).toFixed(3)));
-          circle.setAttribute('filter',  `url(#${filterId})`);
+          circle.setAttribute('cx', String(b.renderX));
+          circle.setAttribute('cy', String(b.renderY));
+          circle.setAttribute('r', String(r * rMult));
+          circle.setAttribute('fill', b.color);
+          circle.setAttribute('opacity', String(+(baseOpacity * intensity * b.opacity).toFixed(3)));
+          circle.setAttribute('filter', `url(#${filterId})`);
           ctx.svg.appendChild(circle);
         }
       } else {
         // glassPerformanceHint "safe": CSS drop-shadow only — no feGaussianBlur.
-        const spread  = Math.round(8 + intensity * 10);
-        const opacity = (0.35 + intensity * 0.25).toFixed(2);
-        const circle  = document.createElementNS(NS, 'circle') as SVGCircleElement;
-        circle.setAttribute('cx',      String(b.renderX));
-        circle.setAttribute('cy',      String(b.renderY));
-        circle.setAttribute('r',       String(r * 0.95));
-        circle.setAttribute('fill',    b.color);
+        const spread = Math.round(8 + intensity * 10);
+        const opacity = ((0.35 + intensity * 0.25) * b.opacity).toFixed(3);
+        const circle = document.createElementNS(NS, 'circle') as SVGCircleElement;
+        circle.setAttribute('cx', String(b.renderX));
+        circle.setAttribute('cy', String(b.renderY));
+        circle.setAttribute('r', String(r * 0.95));
+        circle.setAttribute('fill', b.color);
         circle.setAttribute('opacity', opacity);
         circle.style.filter = `drop-shadow(0 5px ${spread}px ${b.color}) drop-shadow(0 2px 4px rgba(0,0,0,0.35))`;
         ctx.svg.appendChild(circle);
@@ -273,11 +274,11 @@ export class SvgRenderer implements IRenderer {
     if (!ctx.svg) return;
 
     for (const b of bubbles) {
-      const r      = b.renderRadius * b.renderScale;
+      const r = b.renderRadius * b.renderScale;
       const circle = document.createElementNS(NS, 'circle') as SVGCircleElement;
       circle.setAttribute('cx', String(b.renderX));
       circle.setAttribute('cy', String(b.renderY));
-      circle.setAttribute('r',  String(r));
+      circle.setAttribute('r', String(r));
 
       if (state.theme === 'glass') {
         const gradId = `bcjs-grad-${b.color.replace(/[^a-z0-9]/gi, '')}`;
@@ -287,18 +288,19 @@ export class SvgRenderer implements IRenderer {
         circle.setAttribute('fill', b.color);
       }
 
+      if (b.opacity < 1) circle.setAttribute('opacity', String(+b.opacity.toFixed(3)));
       circle.setAttribute('data-bubble-id', b.id);
       ctx.svg.appendChild(circle);
 
       // Glass inner highlight ellipse
       if (state.theme === 'glass') {
         const highlight = document.createElementNS(NS, 'ellipse') as SVGEllipseElement;
-        highlight.setAttribute('cx',      String(b.renderX - r * 0.2));
-        highlight.setAttribute('cy',      String(b.renderY - r * 0.25));
-        highlight.setAttribute('rx',      String(r * 0.35));
-        highlight.setAttribute('ry',      String(r * 0.18));
-        highlight.setAttribute('fill',    'rgba(255,255,255,0.25)');
-        highlight.setAttribute('opacity', '0.7');
+        highlight.setAttribute('cx', String(b.renderX - r * 0.2));
+        highlight.setAttribute('cy', String(b.renderY - r * 0.25));
+        highlight.setAttribute('rx', String(r * 0.35));
+        highlight.setAttribute('ry', String(r * 0.18));
+        highlight.setAttribute('fill', 'rgba(255,255,255,0.25)');
+        highlight.setAttribute('opacity', String(+(0.7 * b.opacity).toFixed(3)));
         ctx.svg.appendChild(highlight);
       }
     }
@@ -307,36 +309,36 @@ export class SvgRenderer implements IRenderer {
   private drawText(ctx: DrawContext, bubbles: ReadonlyArray<BubbleState>, state: RenderFrameState): void {
     if (!ctx.svg) return;
 
-    const baseFontSize = this.config.fontSize        ?? 12;
-    const fontFamily   = this.config.defaultFontFamily ?? 'Arial';
-    const fontColor    = this.config.defaultFontColor  ?? '#ffffff';
-    const textWrap     = this.config.textWrap          ?? true;
-    const maxLines     = this.config.maxLines          ?? 'auto';
+    const baseFontSize = this.config.fontSize ?? 12;
+    const fontFamily = this.config.defaultFontFamily ?? 'Arial';
+    const fontColor = this.config.defaultFontColor ?? '#ffffff';
+    const textWrap = this.config.textWrap ?? true;
+    const maxLines = this.config.maxLines ?? 'auto';
 
     for (const b of bubbles) {
-      const r    = b.renderRadius * b.renderScale;
+      const r = b.renderRadius * b.renderScale;
       const size = computeFontSize(r, baseFontSize);
       if (size < 6) continue;
 
       // Icon rendered above the label
       if (b.icon) {
         const iconFont = (b as any).iconFont ?? 'Material Symbols Outlined';
-        const iconEl   = document.createElementNS(NS, 'text') as SVGTextElement;
-        iconEl.setAttribute('x',                String(b.renderX));
-        iconEl.setAttribute('y',                String(b.renderY - r * 0.3));
-        iconEl.setAttribute('text-anchor',      'middle');
+        const iconEl = document.createElementNS(NS, 'text') as SVGTextElement;
+        iconEl.setAttribute('x', String(b.renderX));
+        iconEl.setAttribute('y', String(b.renderY - r * 0.3));
+        iconEl.setAttribute('text-anchor', 'middle');
         iconEl.setAttribute('dominant-baseline', 'middle');
-        iconEl.setAttribute('font-family',      iconFont);
-        iconEl.setAttribute('font-size',        String(size));
-        iconEl.setAttribute('fill',             fontColor);
+        iconEl.setAttribute('font-family', iconFont);
+        iconEl.setAttribute('font-size', String(size));
+        iconEl.setAttribute('fill', fontColor);
         iconEl.textContent = b.icon;
         ctx.svg.appendChild(iconEl);
       }
 
       if (textWrap) {
-        const maxWidth   = r * 1.5;
+        const maxWidth = r * 1.5;
         const lineHeight = size * 1.4;
-        const words      = b.label.trim().split(/\s+/);
+        const words = b.label.trim().split(/\s+/);
         const lines: string[] = [];
         let current = '';
 
@@ -352,31 +354,31 @@ export class SvgRenderer implements IRenderer {
         }
         if (current) lines.push(current);
 
-        const limit   = maxLines === 'auto' ? lines.length : maxLines;
+        const limit = maxLines === 'auto' ? lines.length : maxLines;
         const visible = lines.slice(0, limit);
-        const startY  = b.renderY - ((visible.length - 1) * lineHeight) / 2;
+        const startY = b.renderY - ((visible.length - 1) * lineHeight) / 2;
 
         for (let i = 0; i < visible.length; i++) {
           const textEl = document.createElementNS(NS, 'text') as SVGTextElement;
-          textEl.setAttribute('x',                String(b.renderX));
-          textEl.setAttribute('y',                String(startY + i * lineHeight));
-          textEl.setAttribute('text-anchor',      'middle');
+          textEl.setAttribute('x', String(b.renderX));
+          textEl.setAttribute('y', String(startY + i * lineHeight));
+          textEl.setAttribute('text-anchor', 'middle');
           textEl.setAttribute('dominant-baseline', 'middle');
-          textEl.setAttribute('font-family',      `${fontFamily}, sans-serif`);
-          textEl.setAttribute('font-size',        String(size));
-          textEl.setAttribute('fill',             fontColor);
+          textEl.setAttribute('font-family', `${fontFamily}, sans-serif`);
+          textEl.setAttribute('font-size', String(size));
+          textEl.setAttribute('fill', fontColor);
           textEl.textContent = visible[i];
           ctx.svg.appendChild(textEl);
         }
       } else {
         const textEl = document.createElementNS(NS, 'text') as SVGTextElement;
-        textEl.setAttribute('x',                String(b.renderX));
-        textEl.setAttribute('y',                String(b.renderY));
-        textEl.setAttribute('text-anchor',      'middle');
+        textEl.setAttribute('x', String(b.renderX));
+        textEl.setAttribute('y', String(b.renderY));
+        textEl.setAttribute('text-anchor', 'middle');
         textEl.setAttribute('dominant-baseline', 'middle');
-        textEl.setAttribute('font-family',      `${fontFamily}, sans-serif`);
-        textEl.setAttribute('font-size',        String(size));
-        textEl.setAttribute('fill',             fontColor);
+        textEl.setAttribute('font-family', `${fontFamily}, sans-serif`);
+        textEl.setAttribute('font-size', String(size));
+        textEl.setAttribute('fill', fontColor);
         textEl.textContent = b.label;
         ctx.svg.appendChild(textEl);
       }
@@ -392,13 +394,13 @@ export class SvgRenderer implements IRenderer {
       const scale = 5;
       for (const b of bubbles) {
         const line = document.createElementNS(NS, 'line') as SVGLineElement;
-        line.setAttribute('x1',           String(b.renderX));
-        line.setAttribute('y1',           String(b.renderY));
-        line.setAttribute('x2',           String(b.renderX + b.vx * scale));
-        line.setAttribute('y2',           String(b.renderY + b.vy * scale));
-        line.setAttribute('stroke',       '#ff0');
+        line.setAttribute('x1', String(b.renderX));
+        line.setAttribute('y1', String(b.renderY));
+        line.setAttribute('x2', String(b.renderX + b.vx * scale));
+        line.setAttribute('y2', String(b.renderY + b.vy * scale));
+        line.setAttribute('stroke', '#ff0');
         line.setAttribute('stroke-width', '2');
-        line.setAttribute('opacity',      String(opacity));
+        line.setAttribute('opacity', String(opacity));
         ctx.svg.appendChild(line);
       }
     }
@@ -406,12 +408,12 @@ export class SvgRenderer implements IRenderer {
     if (this.config.debug.showBubbleIds) {
       for (const b of bubbles) {
         const textEl = document.createElementNS(NS, 'text') as SVGTextElement;
-        textEl.setAttribute('x',           String(b.renderX));
-        textEl.setAttribute('y',           String(b.renderY - b.renderRadius - 12));
+        textEl.setAttribute('x', String(b.renderX));
+        textEl.setAttribute('y', String(b.renderY - b.renderRadius - 12));
         textEl.setAttribute('text-anchor', 'middle');
-        textEl.setAttribute('fill',        '#fff');
-        textEl.setAttribute('font-size',   '10');
-        textEl.setAttribute('opacity',     String(opacity));
+        textEl.setAttribute('fill', '#fff');
+        textEl.setAttribute('font-size', '10');
+        textEl.setAttribute('opacity', String(opacity));
         textEl.textContent = b.id;
         ctx.svg.appendChild(textEl);
       }
@@ -420,8 +422,8 @@ export class SvgRenderer implements IRenderer {
 
   // ── Color utilities ────────────────────────────────────────────────────────
 
-  private lightenColor(hex: string, amount: number): string { return this.shiftColor(hex,  amount); }
-  private darkenColor(hex: string,  amount: number): string { return this.shiftColor(hex, -amount); }
+  private lightenColor(hex: string, amount: number): string { return this.shiftColor(hex, amount); }
+  private darkenColor(hex: string, amount: number): string { return this.shiftColor(hex, -amount); }
 
   /**
    * Shifts each RGB channel of a hex color by amount * 255.
@@ -429,11 +431,11 @@ export class SvgRenderer implements IRenderer {
    * Handles both 3-digit and 6-digit hex strings, with or without '#'.
    */
   private shiftColor(hex: string, amount: number): string {
-    const h    = hex.replace('#', '');
+    const h = hex.replace('#', '');
     const full = h.length === 3 ? h.split('').map(c => c + c).join('') : h;
-    const r    = Math.max(0, Math.min(255, parseInt(full.slice(0, 2), 16) + Math.round(amount * 255)));
-    const g    = Math.max(0, Math.min(255, parseInt(full.slice(2, 4), 16) + Math.round(amount * 255)));
-    const b    = Math.max(0, Math.min(255, parseInt(full.slice(4, 6), 16) + Math.round(amount * 255)));
+    const r = Math.max(0, Math.min(255, parseInt(full.slice(0, 2), 16) + Math.round(amount * 255)));
+    const g = Math.max(0, Math.min(255, parseInt(full.slice(2, 4), 16) + Math.round(amount * 255)));
+    const b = Math.max(0, Math.min(255, parseInt(full.slice(4, 6), 16) + Math.round(amount * 255)));
     return `rgb(${r},${g},${b})`;
   }
 }

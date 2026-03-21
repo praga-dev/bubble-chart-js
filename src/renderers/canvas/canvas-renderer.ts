@@ -174,6 +174,7 @@ export class CanvasRenderer implements IRenderer {
       const rx = b.renderX;
       const ry = b.renderY;
 
+      c.globalAlpha   = b.opacity;
       c.shadowColor   = b.color;
       c.shadowBlur    = Math.min(r * 0.6, maxBlur);
       c.shadowOffsetX = 0;
@@ -184,6 +185,7 @@ export class CanvasRenderer implements IRenderer {
       c.fillStyle = b.color;
       c.fill();
     }
+    c.globalAlpha = 1;
   }
 
   private drawBubbles(ctx: DrawContext, bubbles: ReadonlyArray<BubbleState>, state: RenderFrameState): void {
@@ -194,6 +196,8 @@ export class CanvasRenderer implements IRenderer {
       const r  = b.renderRadius * b.renderScale;
       const rx = b.renderX;
       const ry = b.renderY;
+
+      c.globalAlpha = b.opacity;
 
       c.beginPath();
       c.arc(rx, ry, r, 0, Math.PI * 2);
@@ -219,6 +223,7 @@ export class CanvasRenderer implements IRenderer {
         c.stroke();
       }
     }
+    c.globalAlpha = 1;
   }
 
   private drawText(ctx: DrawContext, bubbles: ReadonlyArray<BubbleState>, state: RenderFrameState): void {

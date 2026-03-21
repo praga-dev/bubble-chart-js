@@ -128,7 +128,24 @@ export class StaticLayout implements ILayoutEngine {
       }
     }
 
-    // Final boundary clamp
+    // ── Center the cluster ─────────────────────────────────────────────────
+    // After settling, the bounding box of the pack may have drifted off-center.
+    // Translate the whole cluster so its bounding box midpoint sits at (cx, cy).
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    for (const b of sorted) {
+      minX = Math.min(minX, b.x - b.radius);
+      maxX = Math.max(maxX, b.x + b.radius);
+      minY = Math.min(minY, b.y - b.radius);
+      maxY = Math.max(maxY, b.y + b.radius);
+    }
+    const shiftX = cx - (minX + maxX) / 2;
+    const shiftY = cy - (minY + maxY) / 2;
+    for (const b of sorted) {
+      b.x += shiftX;
+      b.y += shiftY;
+    }
+
+    // Final boundary clamp (after centering shift)
     for (const b of sorted) {
       b.x = Math.max(PADDING + b.radius, Math.min(width  - PADDING - b.radius, b.x));
       b.y = Math.max(PADDING + b.radius, Math.min(height - PADDING - b.radius, b.y));

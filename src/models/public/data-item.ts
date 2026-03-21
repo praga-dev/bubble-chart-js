@@ -12,6 +12,8 @@ export interface DataItem {
   label:        string;
   value:        number;
   bubbleColor?: string;
+  /** Fill opacity for this bubble (0–1). Overrides bubbleAppearance.opacity. Default: 1 */
+  opacity?:     number;
   /** Unicode codepoint or ligature string ("trending_up", "\ue7fd") */
   icon?:        string;
   /** Per-item font override, e.g. "Material Symbols Outlined" */

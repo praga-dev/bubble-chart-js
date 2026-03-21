@@ -41,7 +41,7 @@
   "author": "Pragadeeshwaran Pasupathi <pragadeeshwaran.pasupathi@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Praga-Dev/bubbleChartJS.git"
+    "url": "git+https://github.com/praga-dev/bubble-chart-js.git"
   },
   "license": "MIT",
   "keywords": [

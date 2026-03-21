@@ -5,11 +5,13 @@
  */
 export interface BubbleState {
   // ── Identity ──────────────────────────────────────────────────────────────
-  id:     string;
-  label:  string;
-  value:  number;
-  color:  string;
-  icon?:  string;
+  id:      string;
+  label:   string;
+  value:   number;
+  color:   string;
+  /** Resolved fill opacity (0–1). 1 = fully opaque. */
+  opacity: number;
+  icon?:   string;
 
   // ── Physics fields — ILayoutEngine writes ONLY ────────────────────────────
   x:      number;
