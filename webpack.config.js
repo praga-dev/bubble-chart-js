@@ -30,9 +30,47 @@ const commonConfig = {
   },
 };
 
+/** Dev server — builds UMD bundle in dev mode + serves demo/ at localhost:9000 */
+const devServerConfig = {
+  ...commonConfig,
+  name: "demo",
+  mode: "development",
+  // Override DefinePlugin: mode:"development" already sets NODE_ENV — avoid conflict
+  plugins: [
+    new webpack.DefinePlugin({
+      "process.env.NODE_ENV": JSON.stringify("development"),
+    }),
+  ],
+  devtool: "eval-source-map",
+  optimization: { minimize: false },
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "bubbleChart.umd.js",
+    library: "BubbleChart",
+    libraryTarget: "umd",
+    globalObject: "this",
+    umdNamedDefine: true,
+    publicPath: "/dist/",
+  },
+  devServer: {
+    // Serve the project root so demo/index.html's ../dist/ reference resolves
+    static: {
+      directory: path.resolve(__dirname),
+      publicPath: "/",
+    },
+    devMiddleware: {
+      publicPath: "/dist/",
+    },
+    port: 9000,
+    open: "/demo/",
+    hot: false,
+  },
+};
+
 /** UMD Build (Browser + Node.js) */
 const umdConfig = {
   ...commonConfig,
+  name: "umd",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bubbleChart.umd.js",
@@ -46,6 +84,7 @@ const umdConfig = {
 /** ESM Build (Modern JavaScript) */
 const esmConfig = {
   ...commonConfig,
+  name: "esm",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bubbleChart.esm.js",
@@ -61,6 +100,7 @@ const esmConfig = {
 /** CommonJS Build (Node.js) */
 const cjsConfig = {
   ...commonConfig,
+  name: "cjs",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bubbleChart.cjs.js",
@@ -70,4 +110,4 @@ const cjsConfig = {
   },
 };
 
-module.exports = [umdConfig, esmConfig, cjsConfig];
+module.exports = [devServerConfig, umdConfig, esmConfig, cjsConfig];

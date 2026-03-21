@@ -43,14 +43,18 @@ export function initializeChart(
   return new BubbleChart(orchestrator);
 }
 
+import { topN as _topN } from './utils/top-n';
+
 // UMD/browser globals
 declare global {
   interface Window {
     initializeChart: typeof initializeChart;
     BubbleChart:     typeof BubbleChart;
+    topN:            typeof _topN;
   }
 }
 if (typeof window !== 'undefined') {
   window.initializeChart = initializeChart;
   window.BubbleChart     = BubbleChart;
+  window.topN            = _topN;
 }

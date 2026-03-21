@@ -12,7 +12,8 @@
     "clean": "rimraf dist",
     "build": "npm run clean && webpack --mode production",
     "watch": "webpack --watch",
-    "start": "webpack serve --open",
+    "start": "webpack serve --config-name demo",
+    "demo": "webpack serve --config-name demo",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint src/**/*.ts --fix",
     "test": "jest"
