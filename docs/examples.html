@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#090e1c",
+            "on-tertiary-container": "#005b29",
+            "on-error": "#490006",
+            "on-surface-variant": "#a6aabf",
+            "outline-variant": "#434759",
+            "surface-tint": "#72dcff",
+            "on-secondary-fixed": "#580078",
+            "surface-container": "#13192b",
+            "tertiary-fixed-dim": "#33ec7b",
+            "surface-container-highest": "#1e253b",
+            "error-container": "#9f0519",
+            "on-primary-fixed-variant": "#004c5e",
+            "on-tertiary-fixed-variant": "#00662e",
+            "inverse-surface": "#faf8ff",
+            "on-secondary-container": "#f1bfff",
+            "primary-fixed": "#00d2ff",
+            "on-surface": "#e1e4fa",
+            "secondary": "#dd8bfb",
+            "surface-variant": "#1e253b",
+            "primary-fixed-dim": "#00c3ed",
+            "surface-bright": "#242b43",
+            "on-primary-fixed": "#002c38",
+            "error-dim": "#d7383b",
+            "surface-dim": "#090e1c",
+            "on-secondary": "#4c0068",
+            "tertiary-dim": "#33ec7b",
+            "background": "#090e1c",
+            "secondary-dim": "#ce7eec",
+            "inverse-on-surface": "#505466",
+            "secondary-fixed-dim": "#ebadff",
+            "inverse-primary": "#00687f",
+            "tertiary": "#a6ffb5",
+            "on-error-container": "#ffa8a3",
+            "on-tertiary-fixed": "#00461e",
+            "tertiary-container": "#49fb87",
+            "surface-container-high": "#181f33",
+            "error": "#ff716c",
+            "primary-dim": "#00c3ed",
+            "secondary-container": "#6e208c",
+            "on-tertiary": "#00652e",
+            "on-primary": "#004c5e",
+            "surface-container-low": "#0d1323",
+            "on-primary-container": "#004253",
+            "outline": "#707588",
+            "on-background": "#e1e4fa",
+            "surface-container-lowest": "#000000",
+            "primary-container": "#00d2ff",
+            "on-secondary-fixed-variant": "#792c97",
+            "primary": "#72dcff",
+            "tertiary-fixed": "#49fb87",
+            "secondary-fixed": "#f2c1ff"
+          },
+          fontFamily: {
+            "headline": ["Manrope"],
+            "body": ["Inter"],
+            "label": ["Space Grotesk"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style>
+    .glass-panel {
+      background: rgba(30, 37, 59, 0.6);
+      backdrop-filter: blur(12px);
+    }
+
+    .neon-glow-primary:hover {
+      box-shadow: 0 0 15px rgba(114, 220, 255, 0.4);
+    }
+
+    .neon-gradient {
+      background: linear-gradient(135deg, #72dcff 0%, #00d2ff 100%);
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .code-syntax-keyword {
+      color: #dd8bfb;
+    }
+
+    .code-syntax-string {
+      color: #a6ffb5;
+    }
+
+    .code-syntax-function {
+      color: #72dcff;
+    }
+
+    .code-syntax-comment {
+      color: #707588;
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-surface font-body selection:bg-primary/30">
+  <!-- TopNavBar -->
+  <nav class="fixed top-0 w-full z-50 bg-[#090e1c]/60 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
+    <div class="flex justify-between items-center h-16 px-8 max-w-7xl mx-auto">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary"
+          style="font-variation-settings: 'FILL' 1;">bubble_chart</span>
+        <a href="index.html" class="flex items-center gap-2 hover:opacity-80 transition-opacity"><span
+            class="text-xl font-black text-[#72dcff] tracking-tighter font-headline">bubble-chart-js</span></a>
+      </div>
+      <div id="mobile-menu"
+        class="hidden md:flex flex-col md:flex-row absolute md:relative top-16 md:top-0 left-0 w-full md:w-auto bg-[#090e1c]/95 md:bg-transparent p-6 md:p-0 items-center gap-8 font-headline font-bold tracking-tight border-b md:border-none border-outline-variant/15 md:flex-1 md:justify-center">
+        <a class="text-[#e1e4fa] opacity-80 hover:text-[#dd8bfb] transition-colors duration-300"
+          href="documentation.html">Docs</a>
+        <a class="text-[#72dcff] border-b-2 border-[#72dcff] pb-1 hover:text-[#dd8bfb] transition-colors duration-300"
+          href="examples.html">Examples</a>
+        <a class="text-[#e1e4fa] opacity-80 hover:text-[#dd8bfb] transition-colors duration-300"
+          href="playground.html">Playground</a>
+        <a class="text-[#e1e4fa] opacity-80 hover:text-[#dd8bfb] transition-colors duration-300"
+          href="https://github.com/praga-dev/bubble-chart-js">GitHub</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <button id="menu-btn"
+          class="md:hidden material-symbols-outlined text-[#e1e4fa] hover:text-[#72dcff] transition-colors">menu</button>
+        <button class="material-symbols-outlined text-[#e1e4fa] opacity-80 hover:text-[#dd8bfb]">dark_mode</button>
+        <button
+          class="neon-gradient text-on-primary-fixed px-5 py-2 rounded-xl font-headline font-bold text-sm active:scale-95 duration-200 transition-all">Get
+          Started</button>
+      </div>
+    </div>
+  </nav>
+  <main class="pt-32 pb-24 px-8 max-w-7xl mx-auto">
+    <!-- Header Section -->
+    <header class="mb-20 max-w-2xl">
+      <div
+        class="inline-block px-3 py-1 rounded-full bg-surface-container-highest border border-outline-variant/15 mb-6">
+        <span class="font-label text-xs uppercase tracking-[0.2em] text-secondary font-bold">Showcase</span>
+      </div>
+      <h1
+        class="text-5xl md:text-7xl font-headline font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-on-surface to-on-surface-variant">
+        Examples Gallery
+      </h1>
+      <p class="text-on-surface-variant text-lg leading-relaxed">
+        Explore our curated collection of atmospheric data visualizations. From basic clusters to complex physics-based
+        simulations, everything is customizable.
+      </p>
+    </header>
+    <!-- Bento Grid Gallery -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+      <!-- Featured: Basic Bubble Chart -->
+      <div
+        class="md:col-span-8 group relative overflow-hidden rounded-xl bg-surface-container-high border border-outline-variant/10 shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
+        <div class="aspect-[16/9] relative bg-surface-container-lowest overflow-hidden">
+          <div
+            class="absolute inset-0 opacity-40 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent">
+          </div>
+          <!-- Live Chart: Glassmorphism -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div id="chart-basic" class="w-full h-full" data-alt="Abstract blue floating bubbles visualization"></div>
+          </div>
+          <div class="absolute top-4 left-4">
+            <span
+              class="font-label text-[10px] font-bold px-2 py-1 rounded bg-surface-bright/80 text-on-surface-variant border border-outline-variant/15 backdrop-blur-md">SVG
+              - AUTO</span>
+          </div>
+        </div>
+        <div class="p-8 glass-panel border-t border-outline-variant/10">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h3 class="text-2xl font-headline font-bold text-primary mb-1">Basic bubble chart</h3>
+              <p class="text-on-surface-variant text-sm">The foundation of every visualization. Optimized for clarity
+                and performance.</p>
+            </div>
+            <button id="open-view-code-modal"
+              class="flex items-center gap-2 px-4 py-2 bg-surface-variant/40 hover:bg-surface-variant/80 rounded-lg text-sm font-label font-bold transition-all border border-outline-variant/15">
+              <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">code</span>
+              View Code
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Side Card: Glass Theme -->
+      <div
+        class="md:col-span-4 group relative overflow-hidden rounded-xl bg-surface-container-high border border-outline-variant/10">
+        <div class="aspect-square relative bg-surface-container-lowest">
+          <div class="absolute inset-0 flex items-center justify-center"
+            data-alt="Purple glassmorphism bubble clusters">
+            <div id="chart-glass-canvas" class="w-full h-full"></div>
+          </div>
+          <div class="absolute top-4 left-4">
+            <span
+              class="font-label text-[10px] font-bold px-2 py-1 rounded bg-surface-bright/80 text-on-surface-variant border border-outline-variant/15 backdrop-blur-md">CANVAS
+              - AUTO</span>
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="text-xl font-headline font-bold text-on-surface mb-2">Glass theme</h3>
+          <p class="text-on-surface-variant text-sm mb-6">Utilizing backdrop-filters for immersive depth in your data.
+          </p>
+          <button id="open-canvas-code-modal"
+            class="w-full flex items-center justify-center gap-2 px-4 py-2 bg-surface-variant/20 hover:bg-surface-variant/40 rounded-lg text-xs font-label font-bold transition-all border border-outline-variant/15">
+            <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 0;">code</span>
+            VIEW SOURCE
+          </button>
+        </div>
+      </div>
+      <!-- Row 2: Physics, Dataset, Custom Colors, Interactive -->
+      <div class="md:col-span-4 rounded-xl bg-surface-container-high border border-outline-variant/10 overflow-hidden">
+        <div class="h-48 relative bg-surface-container-lowest flex items-center justify-center overflow-hidden"
+          data-alt="Dynamic physics simulation of moving bubbles">
+          <div class="w-full px-8 flex justify-around items-end h-32">
+            <div class="w-4 h-12 bg-tertiary/40 rounded-full animate-bounce"></div>
+            <div class="w-4 h-24 bg-tertiary/60 rounded-full animate-bounce [animation-delay:0.2s]"></div>
+            <div class="w-4 h-16 bg-tertiary/20 rounded-full animate-bounce [animation-delay:0.4s]"></div>
+            <div class="w-4 h-28 bg-tertiary/80 rounded-full animate-bounce [animation-delay:0.1s]"></div>
+          </div>
+          <div class="absolute top-4 left-4">
+            <span
+              class="font-label text-[10px] font-bold px-2 py-1 rounded bg-surface-bright/80 text-on-surface-variant border border-outline-variant/15">CANVAS</span>
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="font-headline font-bold text-tertiary mb-2">Physics layout</h3>
+          <p class="text-on-surface-variant text-sm mb-4">Collision detection and gravitational fields for organic
+            motion.</p>
+          <button
+            class="text-xs font-label font-bold text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 uppercase tracking-wider">
+            Quick Preview <span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+          </button>
+        </div>
+      </div>
+      <div class="md:col-span-4 rounded-xl bg-surface-container-high border border-outline-variant/10 overflow-hidden">
+        <div class="h-48 relative bg-surface-container-lowest flex items-center justify-center"
+          data-alt="Grid of many small colorful bubbles representing large dataset">
+          <div class="grid grid-cols-8 gap-1 opacity-40">
+            <div class="w-2 h-2 rounded-full bg-primary-fixed"></div>
+            <div class="w-2 h-2 rounded-full bg-secondary"></div>
+            <div class="w-2 h-2 rounded-full bg-tertiary"></div>
+            <div class="w-2 h-2 rounded-full bg-primary"></div>
+            <div class="w-2 h-2 rounded-full bg-on-surface-variant"></div>
+            <div class="w-2 h-2 rounded-full bg-primary-fixed"></div>
+            <div class="w-2 h-2 rounded-full bg-secondary"></div>
+            <div class="w-2 h-2 rounded-full bg-tertiary"></div>
+            <!-- ... more bubbles visual ... -->
+          </div>
+          <div class="absolute top-4 left-4">
+            <span
+              class="font-label text-[10px] font-bold px-2 py-1 rounded bg-surface-bright/80 text-on-surface-variant border border-outline-variant/15">CANVAS</span>
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="font-headline font-bold text-on-surface mb-2">Large dataset (100+)</h3>
+          <p class="text-on-surface-variant text-sm mb-4">Stress-testing the engine with high-volume data points.</p>
+          <button
+            class="text-xs font-label font-bold text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 uppercase tracking-wider">
+            Quick Preview <span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+          </button>
+        </div>
+      </div>
+      <div class="md:col-span-4 rounded-xl bg-surface-container-high border border-outline-variant/10 overflow-hidden">
+        <div class="h-48 relative bg-surface-container-lowest overflow-hidden flex items-center justify-center"
+          data-alt="Multicolor glowing bubbles on dark background">
+          <div class="flex gap-4">
+            <div class="w-12 h-12 rounded-full bg-error/40 border-2 border-error blur-sm"></div>
+            <div class="w-12 h-12 rounded-full bg-secondary/40 border-2 border-secondary blur-sm"></div>
+            <div class="w-12 h-12 rounded-full bg-primary/40 border-2 border-primary blur-sm"></div>
+          </div>
+          <div class="absolute top-4 left-4">
+            <span
+              class="font-label text-[10px] font-bold px-2 py-1 rounded bg-surface-bright/80 text-on-surface-variant border border-outline-variant/15">SVG</span>
+          </div>
+        </div>
+        <div class="p-6">
+          <h3 class="font-headline font-bold text-secondary mb-2">Custom colors</h3>
+          <p class="text-on-surface-variant text-sm mb-4">Gradient mappings and per-node styling for branded charts.</p>
+          <button
+            class="text-xs font-label font-bold text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 uppercase tracking-wider">
+            Quick Preview <span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+          </button>
+        </div>
+      </div>
+      <!-- Bottom Wide Card -->
+      <div
+        class="md:col-span-12 group relative overflow-hidden rounded-xl bg-surface-container-high border border-outline-variant/10 mt-6">
+        <div class="flex flex-col md:flex-row items-stretch">
+          <div class="w-full md:w-1/2 aspect-video bg-surface-container-lowest relative"
+            data-alt="Hand hovering over a bubble chart node indicating interactivity">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="relative">
+                <div
+                  class="w-32 h-32 rounded-full border-2 border-dashed border-primary/40 animate-[spin_10s_linear_infinite]">
+                </div>
+                <div
+                  class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-primary shadow-[0_0_30px_#72dcff]">
+                </div>
+                <div class="absolute -top-10 -right-10 glass-panel p-2 rounded border border-outline-variant/20">
+                  <div class="font-label text-[10px] text-primary">onBubbleClick: (e) =&gt; {...}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center glass-panel">
+            <span class="font-label text-xs text-primary font-bold uppercase tracking-widest mb-4">Developer
+              Experience</span>
+            <h3 class="text-3xl font-headline font-bold text-on-surface mb-4">Interactive events</h3>
+            <p class="text-on-surface-variant text-base mb-8">Full control over mouse and touch events. Hook into click,
+              hover, drag, and collision lifecycle events with standard JS syntax.</p>
+            <div class="flex gap-4">
+              <button
+                class="neon-gradient text-on-primary-fixed px-6 py-3 rounded-lg font-headline font-bold transition-transform hover:scale-105">View
+                Example</button>
+              <button
+                class="px-6 py-3 rounded-lg border border-outline-variant/20 font-headline font-bold hover:bg-surface-bright transition-colors">Documentation</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal Overlay Container -->
+  <div id="view-code-modal"
+    class="fixed inset-0 z-[100] flex items-center justify-center bg-background/40 backdrop-blur-sm p-4 hidden opacity-0 transition-opacity duration-300">
+    <!-- View Code Modal -->
+    <div id="view-code-modal-content"
+      class="w-full max-w-4xl glass-panel rounded-xl shadow-[0_20px_40px_rgba(0,0,0,0.4)] overflow-hidden flex flex-col max-h-[870px] transform scale-95 transition-transform duration-300">
+      <!-- Modal Header -->
+      <div
+        class="flex items-center justify-between px-8 py-5 bg-surface-container-high border-b border-outline-variant/15">
+        <div class="flex items-center gap-4">
+          <div class="flex gap-1.5">
+            <div class="w-3 h-3 rounded-full bg-error/50"></div>
+            <div class="w-3 h-3 rounded-full bg-secondary/50"></div>
+            <div class="w-3 h-3 rounded-full bg-tertiary/50"></div>
+          </div>
+          <div class="h-4 w-px bg-outline-variant/30 mx-2"></div>
+          <h2 class="font-headline font-bold text-lg flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-sm" data-icon="code"
+              style="font-variation-settings: 'FILL' 0;">code</span>
+            bubble_chart_basic.js
+          </h2>
+        </div>
+        <div class="flex items-center gap-3">
+          <button
+            class="flex items-center gap-2 px-4 py-1.5 bg-surface-variant/40 hover:bg-surface-variant text-on-surface text-xs font-label uppercase tracking-widest rounded border border-outline-variant/20 transition-all">
+            <span class="material-symbols-outlined text-sm" data-icon="content_copy"
+              style="font-variation-settings: 'FILL' 0;">content_copy</span>
+            Copy Code
+          </button>
+          <button id="close-view-code-modal"
+            class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-error/20 text-on-surface-variant hover:text-error transition-colors">
+            <span class="material-symbols-outlined" data-icon="close"
+              style="font-variation-settings: 'FILL' 0;">close</span>
+          </button>
+        </div>
+      </div>
+      <!-- Code Content Area -->
+      <div class="flex-1 overflow-y-auto p-8 bg-surface-container-lowest">
+        <pre class="font-mono text-sm leading-relaxed text-on-surface/90"><code><span class="code-syntax-keyword">const</span> ITEMS = [
+  { label: <span class="code-syntax-string">'Angular'</span>, value: <span class="code-syntax-function">42</span>, solid: <span class="code-syntax-string">'#5b9cf6'</span>, fill: <span class="code-syntax-string">'rgba(91,156,246,0.38)'</span>  },
+  { label: <span class="code-syntax-string">'Next.js'</span>, value: <span class="code-syntax-function">35</span>, solid: <span class="code-syntax-string">'#8b6fd4'</span>, fill: <span class="code-syntax-string">'rgba(139,111,212,0.38)'</span> },
+  { label: <span class="code-syntax-string">'Vue'</span>,     value: <span class="code-syntax-function">28</span>, solid: <span class="code-syntax-string">'#4db8b0'</span>, fill: <span class="code-syntax-string">'rgba(77,184,176,0.38)'</span>  },
+  { label: <span class="code-syntax-string">'React'</span>,   value: <span class="code-syntax-function">22</span>, solid: <span class="code-syntax-string">'#d45b7a'</span>, fill: <span class="code-syntax-string">'rgba(212,91,122,0.38)'</span>  },
+  { label: <span class="code-syntax-string">'Astro'</span>,   value: <span class="code-syntax-function">20</span>, solid: <span class="code-syntax-string">'#c9903a'</span>, fill: <span class="code-syntax-string">'rgba(201,144,58,0.38)'</span>  },
+  { label: <span class="code-syntax-string">'Svelte'</span>,  value: <span class="code-syntax-function">18</span>, solid: <span class="code-syntax-string">'#4aa87a'</span>, fill: <span class="code-syntax-string">'rgba(74,168,122,0.38)'</span>  },
+  { label: <span class="code-syntax-string">'Nuxt'</span>,    value: <span class="code-syntax-function">15</span>, solid: <span class="code-syntax-string">'#b86fc9'</span>, fill: <span class="code-syntax-string">'rgba(184,111,201,0.38)'</span> },
+  { label: <span class="code-syntax-string">'Remix'</span>,   value: <span class="code-syntax-function">12</span>, solid: <span class="code-syntax-string">'#c97a4d'</span>, fill: <span class="code-syntax-string">'rgba(201,122,77,0.38)'</span>  },
+];
+
+<span class="code-syntax-keyword">const</span> fillToSolid = <span class="code-syntax-keyword">new</span> <span class="code-syntax-function">Map</span>(ITEMS.<span class="code-syntax-function">map</span>(c => [c.fill, c.solid]));
+
+<span class="code-syntax-keyword">const</span> data = ITEMS.<span class="code-syntax-function">map</span>(({ label, value, fill }) => ({
+  label,
+  value,
+  bubbleColor: fill,
+}));
+
+<span class="code-syntax-keyword">const</span> chart = <span class="code-syntax-function">initializeChart</span>({
+  canvasContainerId: <span class="code-syntax-string">'chart-basic'</span>,
+  data,
+  render: { mode: <span class="code-syntax-string">'svg'</span>, theme: <span class="code-syntax-string">'flat'</span> },
+  layout: { type: <span class="code-syntax-string">'static'</span> },
+  defaultFontColor: <span class="code-syntax-string">'rgba(255,255,255,0.88)'</span>,
+  defaultFontFamily: <span class="code-syntax-string">'system-ui'</span>,
+  fontSize: <span class="code-syntax-function">13</span>,
+});
+
+<span class="code-syntax-keyword">const</span> NS = <span class="code-syntax-string">'http://www.w3.org/2000/svg'</span>;
+chart.<span class="code-syntax-function">addLayerHook</span>({
+  layer: <span class="code-syntax-string">'bubbles'</span>,
+  priority: <span class="code-syntax-function">10</span>,
+  <span class="code-syntax-function">fn</span>(ctx, bubbles) {
+    <span class="code-syntax-keyword">if</span> (!ctx.svg) <span class="code-syntax-keyword">return</span>;
+    <span class="code-syntax-keyword">for</span> (<span class="code-syntax-keyword">const</span> b <span class="code-syntax-keyword">of</span> bubbles) {
+      <span class="code-syntax-keyword">const</span> r = b.renderRadius * b.renderScale;
+      <span class="code-syntax-keyword">const</span> ring = document.<span class="code-syntax-function">createElementNS</span>(NS, <span class="code-syntax-string">'circle'</span>);
+      ring.<span class="code-syntax-function">setAttribute</span>(<span class="code-syntax-string">'cx'</span>, <span class="code-syntax-function">String</span>(b.renderX));
+      ring.<span class="code-syntax-function">setAttribute</span>(<span class="code-syntax-string">'cy'</span>, <span class="code-syntax-function">String</span>(b.renderY));
+      ring.<span class="code-syntax-function">setAttribute</span>(<span class="code-syntax-string">'r'</span>, <span class="code-syntax-function">String</span>(r - <span class="code-syntax-function">0.5</span>));
+      ring.<span class="code-syntax-function">setAttribute</span>(<span class="code-syntax-string">'fill'</span>, <span class="code-syntax-string">'none'</span>);
+      ring.<span class="code-syntax-function">setAttribute</span>(<span class="code-syntax-string">'stroke'</span>, fillToSolid.<span class="code-syntax-function">get</span>(b.color) ?? b.color);
+      ring.<span class="code-syntax-function">setAttribute</span>(<span class="code-syntax-string">'stroke-width'</span>, <span class="code-syntax-string">'1'</span>);
+      ring.<span class="code-syntax-function">setAttribute</span>(<span class="code-syntax-string">'opacity'</span>, <span class="code-syntax-string">'0.35'</span>);
+      ctx.svg.<span class="code-syntax-function">appendChild</span>(ring);
+    }
+  },
+});</code></pre>
+      </div>
+      <!-- Modal Footer Info -->
+      <div
+        class="px-8 py-4 bg-surface-container-high flex justify-between items-center text-[10px] font-label text-on-surface-variant uppercase tracking-widest border-t border-outline-variant/15">
+        <div class="flex gap-6">
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span> JavaScript
+            ES6</span>
+          <span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> 0.8 KB
+            Gzipped</span>
+        </div>
+        <div>Line 47, Col 1</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-[#090e1c] w-full py-12 px-8 border-t border-[#434759]/15">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="col-span-1">
+        <a href="index.html"
+          class="text-lg font-bold text-[#72dcff] mb-4 font-headline block hover:opacity-80">bubble-chart-js</a>
+        <p class="font-['Inter'] text-sm text-[#e1e4fa]/60 leading-relaxed">
+          © 2024 bubble-chart-js. Built for atmospheric data visualization. Precision engineering meets fluid
+          aesthetics.
+        </p>
+      </div>
+      <div>
+        <h4 class="font-label text-xs uppercase font-bold text-on-surface mb-6 tracking-[0.2em]">Resources</h4>
+        <ul class="space-y-3 font-['Inter'] text-sm text-[#e1e4fa]/60">
+          <li><a class="hover:text-[#dd8bfb] transition-opacity" href="documentation.html">Docs</a></li>
+          <li><a class="hover:text-[#dd8bfb] transition-opacity" href="examples.html">Examples</a></li>
+          <li><a class="hover:text-[#dd8bfb] transition-opacity"
+              href="https://github.com/praga-dev/bubble-chart-js">GitHub</a></li>
+          <li><a class="hover:text-[#dd8bfb] transition-opacity" href="https://www.npmjs.com/package/bubble-chart-js"
+              target="_blank" rel="noopener noreferrer">NPM</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-label text-xs uppercase font-bold text-on-surface mb-6 tracking-[0.2em]">Community</h4>
+        <ul class="space-y-3 font-['Inter'] text-sm text-[#e1e4fa]/60">
+          <li><a class="hover:text-[#dd8bfb] transition-opacity" href="#">Twitter</a></li>
+          <li><a class="hover:text-[#dd8bfb] transition-opacity" href="#">Discord</a></li>
+          <li><a class="hover:text-[#dd8bfb] transition-opacity" href="#">License</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-label text-xs uppercase font-bold text-on-surface mb-6 tracking-[0.2em]">Newsletter</h4>
+        <div class="flex gap-2">
+          <input
+            class="bg-surface-container border-none rounded-lg px-4 py-2 text-sm focus:ring-1 focus:ring-primary w-full"
+            placeholder="email@example.com" type="email" />
+          <button
+            class="material-symbols-outlined bg-primary text-on-primary-fixed p-2 rounded-lg">arrow_forward</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../dist/bubbleChart.umd.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // ── Mobile menu ───────────────────────────────────────────────────────
+      const menuBtn = document.getElementById('menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+          mobileMenu.classList.toggle('flex');
+        });
+      }
+
+      // ── Modal logic ───────────────────────────────────────────────────────
+      const openModalBtn = document.getElementById('open-view-code-modal');
+      const openCanvasModalBtn = document.getElementById('open-canvas-code-modal');
+      const closeModalBtn = document.getElementById('close-view-code-modal');
+      const modalOverlay = document.getElementById('view-code-modal');
+      const modalContent = document.getElementById('view-code-modal-content');
+      const modalTitle = modalContent.querySelector('h2');
+      const modalCodeArea = modalContent.querySelector('.flex-1.overflow-y-auto pre code');
+
+      const SVG_TITLE = 'bubble_chart_basic.js';
+      const CANVAS_TITLE = 'bubble_chart_canvas.js';
+
+      const kw = cls => `<span class="code-syntax-keyword">${cls}</span>`;
+      const fn = cls => `<span class="code-syntax-function">${cls}</span>`;
+      const str = cls => `<span class="code-syntax-string">${cls}</span>`;
+      const cmt = cls => `<span class="code-syntax-comment">${cls}</span>`;
+
+      const CANVAS_CODE = `${kw('const')} CANVAS_ITEMS = [
+  { label: ${str("'Bubble 1'")}, value: ${fn('42')}, solid: ${str("'#5b9cf6'")}, fill: ${str("'rgba(91,156,246,0.38)'")}  },
+  { label: ${str("'Bubble 2'")}, value: ${fn('35')}, solid: ${str("'#8b6fd4'")}, fill: ${str("'rgba(139,111,212,0.38)'")} },
+];
+
+${kw('const')} canvasFillToSolid = ${kw('new')} ${fn('Map')}(CANVAS_ITEMS.${fn('map')}(c => [c.fill, c.solid]));
+
+${kw('const')} canvasData = CANVAS_ITEMS.${fn('map')}(({ label, value, fill }) => ({
+  label,
+  value,
+  bubbleColor: fill,
+}));
+
+${kw('const')} chartGlass = ${fn('initializeChart')}({
+  canvasContainerId: ${str("'chart-glass-canvas'")},
+  data: canvasData,
+  render: { mode: ${str("'canvas'")}, theme: ${str("'flat'")} },
+  layout: { type: ${str("'static'")} },
+  defaultFontColor: ${str("'rgba(255,255,255,0.88)'")},
+  defaultFontFamily: ${str("'system-ui'")},
+  fontSize: ${fn('13')},
+});
+
+chartGlass.${fn('addLayerHook')}({
+  layer: ${str("'bubbles'")},
+  priority: ${fn('10')},
+  ${fn('fn')}(ctx, bubbles) {
+    ${kw('if')} (!ctx.canvas) ${kw('return')};
+    ${kw('const')} c = ctx.canvas;
+    ${kw('for')} (${kw('const')} b ${kw('of')} bubbles) {
+      ${kw('const')} r = b.renderRadius * b.renderScale;
+      c.${fn('beginPath')}();
+      c.${fn('arc')}(b.renderX, b.renderY, r - ${fn('0.5')}, ${fn('0')}, Math.PI * ${fn('2')});
+      c.strokeStyle = canvasFillToSolid.${fn('get')}(b.color) ?? b.color;
+      c.lineWidth = ${fn('1')};
+      c.globalAlpha = ${fn('0.35')};
+      c.${fn('stroke')}();
+      c.globalAlpha = ${fn('1')};
+    }
+  },
+});`;
+
+      function openModal(title, code) {
+        modalTitle.childNodes[modalTitle.childNodes.length - 1].textContent = ' ' + title;
+        modalCodeArea.innerHTML = code;
+        modalOverlay.classList.remove('hidden');
+        void modalOverlay.offsetWidth;
+        modalOverlay.classList.remove('opacity-0');
+        modalOverlay.classList.add('opacity-100');
+        modalContent.classList.remove('scale-95');
+        modalContent.classList.add('scale-100');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        modalOverlay.classList.remove('opacity-100');
+        modalOverlay.classList.add('opacity-0');
+        modalContent.classList.remove('scale-100');
+        modalContent.classList.add('scale-95');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+          modalOverlay.classList.add('hidden');
+        }, 300);
+      }
+
+      if (openModalBtn) openModalBtn.addEventListener('click', () => openModal(SVG_TITLE, modalCodeArea.innerHTML));
+      if (openCanvasModalBtn) openCanvasModalBtn.addEventListener('click', () => openModal(CANVAS_TITLE, CANVAS_CODE));
+      if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+      if (modalOverlay) {
+        modalOverlay.addEventListener('click', (e) => {
+          if (e.target === modalOverlay) closeModal();
+        });
+      }
+
+      // ── Basic bubble chart (glassmorphism config) ─────────────────────────
+      const ITEMS = [
+        { label: 'Angular', value: 42, solid: '#5b9cf6', fill: 'rgba(91,156,246,0.38)' },
+        { label: 'Next.js', value: 35, solid: '#8b6fd4', fill: 'rgba(139,111,212,0.38)' },
+        { label: 'Vue', value: 28, solid: '#4db8b0', fill: 'rgba(77,184,176,0.38)' },
+        { label: 'React', value: 22, solid: '#d45b7a', fill: 'rgba(212,91,122,0.38)' },
+        { label: 'Astro', value: 20, solid: '#c9903a', fill: 'rgba(201,144,58,0.38)' },
+        { label: 'Svelte', value: 18, solid: '#4aa87a', fill: 'rgba(74,168,122,0.38)' },
+        { label: 'Nuxt', value: 15, solid: '#b86fc9', fill: 'rgba(184,111,201,0.38)' },
+        { label: 'Remix', value: 12, solid: '#c97a4d', fill: 'rgba(201,122,77,0.38)' },
+      ];
+
+      const fillToSolid = new Map(ITEMS.map(c => [c.fill, c.solid]));
+
+      const data = ITEMS.map(({ label, value, fill }) => ({
+        label,
+        value,
+        bubbleColor: fill,
+      }));
+
+      const chart = initializeChart({
+        canvasContainerId: 'chart-basic',
+        data,
+        render: { mode: 'svg', theme: 'flat' },
+        layout: { type: 'static' },
+        defaultFontColor: 'rgba(255,255,255,0.88)',
+        defaultFontFamily: 'system-ui',
+        fontSize: 13,
+      });
+
+      const NS = 'http://www.w3.org/2000/svg';
+      chart.addLayerHook({
+        layer: 'bubbles',
+        priority: 10,
+        fn(ctx, bubbles) {
+          if (!ctx.svg) return;
+          for (const b of bubbles) {
+            const r = b.renderRadius * b.renderScale;
+            const ring = document.createElementNS(NS, 'circle');
+            ring.setAttribute('cx', String(b.renderX));
+            ring.setAttribute('cy', String(b.renderY));
+            ring.setAttribute('r', String(r - 0.5));
+            ring.setAttribute('fill', 'none');
+            ring.setAttribute('stroke', fillToSolid.get(b.color) ?? b.color);
+            ring.setAttribute('stroke-width', '1');
+            ring.setAttribute('opacity', '0.35');
+            ctx.svg.appendChild(ring);
+          }
+        },
+      });
+
+      // ── Glass theme card: canvas implementation ───────────────────────────
+
+      const CANVAS_ITEMS = [
+        { label: 'Bubble 1', value: 42, solid: '#5b9cf6', fill: 'rgba(91,156,246,0.38)' },
+        { label: 'Bubble 2', value: 35, solid: '#8b6fd4', fill: 'rgba(139,111,212,0.38)' }
+      ];
+
+      const canvasFillToSolid = new Map(CANVAS_ITEMS.map(c => [c.fill, c.solid]));
+
+      const canvasData = CANVAS_ITEMS.map(({ label, value, fill }) => ({
+        label,
+        value,
+        bubbleColor: fill,
+      }));
+
+      const chartGlass = initializeChart({
+        canvasContainerId: 'chart-glass-canvas',
+        data: canvasData,
+        render: { mode: 'canvas', theme: 'flat' },
+        layout: { type: 'static' },
+        defaultFontColor: 'rgba(255,255,255,0.88)',
+        defaultFontFamily: 'system-ui',
+        fontSize: 13,
+      });
+
+      chartGlass.addLayerHook({
+        layer: 'bubbles',
+        priority: 10,
+        fn(ctx, bubbles) {
+          if (!ctx.canvas) return;
+          const c = ctx.canvas;
+          for (const b of bubbles) {
+            const r = b.renderRadius * b.renderScale;
+            c.beginPath();
+            c.arc(b.renderX, b.renderY, r - 0.5, 0, Math.PI * 2);
+            c.strokeStyle = canvasFillToSolid.get(b.color) ?? b.color;
+            c.lineWidth = 1;
+            c.globalAlpha = 0.35;
+            c.stroke();
+            c.globalAlpha = 1;
+          }
+        },
+      });
+    });
+  </script>
+</body>
+
+</html>

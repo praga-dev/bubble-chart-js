@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Playground | bubble-chart-js</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;700&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#090e1c",
+            "on-tertiary-container": "#005b29",
+            "on-error": "#490006",
+            "on-surface-variant": "#a6aabf",
+            "outline-variant": "#434759",
+            "surface-tint": "#72dcff",
+            "on-secondary-fixed": "#580078",
+            "surface-container": "#13192b",
+            "tertiary-fixed-dim": "#33ec7b",
+            "surface-container-highest": "#1e253b",
+            "error-container": "#9f0519",
+            "on-primary-fixed-variant": "#004c5e",
+            "on-tertiary-fixed-variant": "#00662e",
+            "inverse-surface": "#faf8ff",
+            "on-secondary-container": "#f1bfff",
+            "primary-fixed": "#00d2ff",
+            "on-surface": "#e1e4fa",
+            "secondary": "#dd8bfb",
+            "surface-variant": "#1e253b",
+            "primary-fixed-dim": "#00c3ed",
+            "surface-bright": "#242b43",
+            "on-primary-fixed": "#002c38",
+            "error-dim": "#d7383b",
+            "surface-dim": "#090e1c",
+            "on-secondary": "#4c0068",
+            "tertiary-dim": "#33ec7b",
+            "background": "#090e1c",
+            "secondary-dim": "#ce7eec",
+            "inverse-on-surface": "#505466",
+            "secondary-fixed-dim": "#ebadff",
+            "inverse-primary": "#00687f",
+            "tertiary": "#a6ffb5",
+            "on-error-container": "#ffa8a3",
+            "on-tertiary-fixed": "#00461e",
+            "tertiary-container": "#49fb87",
+            "surface-container-high": "#181f33",
+            "error": "#ff716c",
+            "primary-dim": "#00c3ed",
+            "secondary-container": "#6e208c",
+            "on-tertiary": "#00652e",
+            "on-primary": "#004c5e",
+            "surface-container-low": "#0d1323",
+            "on-primary-container": "#004253",
+            "outline": "#707588",
+            "on-background": "#e1e4fa",
+            "surface-container-lowest": "#000000",
+            "primary-container": "#00d2ff",
+            "on-secondary-fixed-variant": "#792c97",
+            "primary": "#72dcff",
+            "tertiary-fixed": "#49fb87",
+            "secondary-fixed": "#f2c1ff"
+          },
+          fontFamily: {
+            "headline": ["Manrope"],
+            "body": ["Inter"],
+            "label": ["Space Grotesk"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style>
+    .glass-panel {
+      background: rgba(30, 37, 59, 0.6);
+      backdrop-filter: blur(12px);
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .code-shadow {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Custom range slider styling */
+    input[type=range] {
+      -webkit-appearance: none;
+      background: transparent;
+    }
+
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 4px;
+      background: #434759;
+      border-radius: 2px;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 16px;
+      width: 16px;
+      border-radius: 50%;
+      background: #72dcff;
+      margin-top: -6px;
+      box-shadow: 0 0 10px rgba(114, 220, 255, 0.5);
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-surface font-body overflow-hidden">
+  <!-- TopNavBar -->
+  <header class="fixed top-0 w-full z-50 bg-[#090e1c]/60 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
+    <nav class="flex justify-between items-center h-16 px-8 max-w-7xl mx-auto">
+      <div class="flex items-center gap-8">
+        <a href="index.html" class="flex items-center gap-2 hover:opacity-80 transition-opacity"><span
+            class="text-xl font-black text-[#72dcff] tracking-tighter font-headline">bubble-chart-js</span></a>
+        <div id="mobile-menu"
+          class="hidden md:flex flex-col md:flex-row absolute md:relative top-16 md:top-0 left-0 w-full md:w-auto bg-[#090e1c]/95 md:bg-transparent p-6 md:p-0 items-center gap-6 font-headline font-bold tracking-tight border-b md:border-none border-outline-variant/15 shadow-[0_20px_40px_rgba(0,0,0,0.4)] md:shadow-none">
+          <a class="text-[#e1e4fa] opacity-80 hover:text-[#dd8bfb] transition-colors duration-300"
+            href="documentation.html">Docs</a>
+          <a class="text-[#e1e4fa] opacity-80 hover:text-[#dd8bfb] transition-colors duration-300"
+            href="examples.html">Examples</a>
+          <a class="text-[#72dcff] border-b-2 border-[#72dcff] pb-1 hover:text-[#dd8bfb] transition-colors duration-300"
+            href="playground.html">Playground</a>
+          <a class="text-[#e1e4fa] opacity-80 hover:text-[#dd8bfb] transition-colors duration-300"
+            href="https://github.com/praga-dev/bubble-chart-js">GitHub</a>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <button id="menu-btn"
+          class="md:hidden material-symbols-outlined text-[#e1e4fa] hover:text-[#72dcff] transition-colors">menu</button>
+        <button class="p-2 text-[#e1e4fa] hover:text-[#dd8bfb] transition-colors">
+          <span class="material-symbols-outlined">dark_mode</span>
+        </button>
+        <button
+          class="bg-gradient-to-br from-primary to-primary-fixed-variant px-5 py-2 rounded-lg text-on-primary-fixed font-headline font-bold text-sm hover:shadow-[0_0_15px_rgba(114,220,255,0.4)] transition-all active:scale-95 duration-200">
+          Get Started
+        </button>
+      </div>
+    </nav>
+  </header>
+  <main class="pt-16 h-screen flex flex-col md:flex-row">
+    <!-- Left: Config Editor -->
+    <section
+      class="w-full md:w-[450px] bg-surface-container border-r border-outline-variant/15 flex flex-col h-full z-10">
+      <!-- Header/Tabs -->
+      <div class="p-6 pb-2">
+        <span class="font-label text-xs uppercase tracking-[0.2em] text-secondary font-bold">Workspace</span>
+        <h1 class="text-2xl font-headline font-extrabold text-on-surface mt-1">Config Editor</h1>
+      </div>
+      <div class="flex-1 overflow-y-auto px-6 space-y-8 py-4 custom-scrollbar">
+        <!-- JSON Code Area -->
+        <div class="space-y-3">
+          <div class="flex justify-between items-center">
+            <span
+              class="font-label text-[10px] uppercase text-on-surface-variant tracking-widest">chart-config.json</span>
+            <span class="text-[10px] text-tertiary">Live Sync Active</span>
+          </div>
+          <div
+            class="bg-surface-container-lowest rounded-xl p-4 code-shadow font-mono text-sm leading-relaxed border border-outline-variant/10">
+            <div class="text-secondary">{</div>
+            <div class="pl-4">
+              <span class="text-primary">"renderer"</span>: <span class="text-tertiary">"canvas"</span>,
+            </div>
+            <div class="pl-4">
+              <span class="text-primary">"count"</span>: <span class="text-tertiary">150</span>,
+            </div>
+            <div class="pl-4">
+              <span class="text-primary">"physics"</span>: {
+            </div>
+            <div class="pl-8">
+              <span class="text-primary">"gravity"</span>: <span class="text-tertiary">0.05</span>,
+            </div>
+            <div class="pl-8">
+              <span class="text-primary">"friction"</span>: <span class="text-tertiary">0.98</span>
+            </div>
+            <div class="pl-4 text-secondary">}</div>
+            <div class="text-secondary">}</div>
+          </div>
+        </div>
+        <!-- Control Panel Forms -->
+        <div class="glass-panel p-6 rounded-xl space-y-6">
+          <!-- Renderer Toggle -->
+          <div class="space-y-3">
+            <label class="font-label text-xs uppercase text-on-surface-variant font-bold">Renderer toggle</label>
+            <div class="grid grid-cols-2 bg-surface-container-highest p-1 rounded-lg">
+              <button
+                class="bg-primary text-on-primary-fixed text-xs font-bold py-2 rounded-md transition-all">SVG</button>
+              <button
+                class="text-on-surface-variant text-xs font-bold py-2 rounded-md hover:text-on-surface">Canvas</button>
+            </div>
+          </div>
+          <!-- Bubble Count Slider -->
+          <div class="space-y-3">
+            <div class="flex justify-between items-center">
+              <label class="font-label text-xs uppercase text-on-surface-variant font-bold">Bubble count</label>
+              <span class="text-xs font-mono text-primary">150</span>
+            </div>
+            <input class="w-full" max="500" min="10" type="range" value="150" />
+          </div>
+          <!-- Physics Toggle -->
+          <div class="flex justify-between items-center">
+            <label class="font-label text-xs uppercase text-on-surface-variant font-bold">Physics simulation</label>
+            <button class="relative inline-flex h-6 w-11 items-center rounded-full bg-primary">
+              <span
+                class="inline-block h-4 w-4 translate-x-6 transform rounded-full bg-on-primary-fixed transition"></span>
+            </button>
+          </div>
+          <!-- Theme Switch -->
+          <div class="space-y-3">
+            <label class="font-label text-xs uppercase text-on-surface-variant font-bold">Visual Theme</label>
+            <select
+              class="w-full bg-surface-container-highest border-none rounded-lg text-sm text-on-surface focus:ring-1 focus:ring-primary py-3">
+              <option>Neon Observatory (Default)</option>
+              <option>Atmospheric Depth</option>
+              <option>Midnight Terminal</option>
+            </select>
+          </div>
+        </div>
+        <!-- Export Action -->
+        <button
+          class="w-full py-4 glass-panel border border-primary/20 rounded-xl text-primary font-headline font-bold text-sm flex items-center justify-center gap-2 hover:bg-primary/5 transition-all group">
+          <span class="material-symbols-outlined text-sm group-hover:rotate-45 transition-transform">send</span>
+          Export Implementation
+        </button>
+      </div>
+    </section>
+    <!-- Right: Live Chart Preview -->
+    <section class="flex-1 relative bg-surface-dim overflow-hidden flex items-center justify-center">
+      <!-- Background Gradients -->
+      <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 bg-primary/10 blur-[120px] rounded-full"></div>
+        <div class="absolute -bottom-1/4 -left-1/4 w-1/2 h-1/2 bg-secondary/10 blur-[120px] rounded-full"></div>
+      </div>
+      <!-- Floating Bubble Elements (Visual Mockup) -->
+      <div class="absolute inset-0 flex items-center justify-center p-12">
+        <div
+          class="relative w-full h-full glass-panel rounded-3xl overflow-hidden border border-outline-variant/10 shadow-[0_40px_80px_rgba(0,0,0,0.6)] flex items-center justify-center">
+          <!-- Decorative Mock Bubbles -->
+          <div
+            class="absolute w-24 h-24 rounded-full bg-gradient-to-br from-primary/40 to-transparent blur-sm border border-primary/30 top-[15%] left-[20%]">
+          </div>
+          <div
+            class="absolute w-40 h-40 rounded-full bg-gradient-to-br from-secondary/30 to-transparent blur-md border border-secondary/20 bottom-[10%] right-[15%]">
+          </div>
+          <div
+            class="absolute w-16 h-16 rounded-full bg-gradient-to-br from-tertiary/40 to-transparent blur-sm border border-tertiary/30 top-[60%] left-[45%]">
+          </div>
+          <div
+            class="absolute w-12 h-12 rounded-full bg-on-surface/5 backdrop-blur-md border border-on-surface/20 top-[40%] right-[30%]">
+          </div>
+          <div class="absolute w-32 h-32 rounded-full bg-primary-fixed-dim/20 blur-xl bottom-[40%] left-[10%]"></div>
+          <!-- Live Indicator -->
+          <div
+            class="absolute top-6 left-6 flex items-center gap-2 bg-surface-container-lowest/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-outline-variant/10">
+            <span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+            <span class="font-label text-[10px] uppercase font-bold tracking-widest">Live Rendering</span>
+          </div>
+          <!-- Zoom Controls Overlay -->
+          <div class="absolute bottom-6 right-6 flex flex-col gap-2">
+            <button
+              class="w-10 h-10 glass-panel rounded-lg flex items-center justify-center hover:bg-surface-bright transition-colors border border-outline-variant/10">
+              <span class="material-symbols-outlined text-on-surface-variant">add</span>
+            </button>
+            <button
+              class="w-10 h-10 glass-panel rounded-lg flex items-center justify-center hover:bg-surface-bright transition-colors border border-outline-variant/10">
+              <span class="material-symbols-outlined text-on-surface-variant">remove</span>
+            </button>
+            <button
+              class="w-10 h-10 glass-panel rounded-lg flex items-center justify-center hover:bg-surface-bright transition-colors border border-outline-variant/10">
+              <span class="material-symbols-outlined text-on-surface-variant">refresh</span>
+            </button>
+          </div>
+          <!-- Empty Space for "Simulation" -->
+          <div class="text-center space-y-4">
+            <div class="font-headline font-black text-6xl text-on-surface/5 pointer-events-none select-none">
+              BUBBLE_CANVAS_v2
+            </div>
+            <p class="font-label text-on-surface-variant/40 tracking-[0.4em] uppercase text-xs">Awaiting data stream</p>
+          </div>
+        </div>
+      </div>
+      <!-- Tooltip Overlay (Interaction Mockup) -->
+      <div
+        class="absolute top-[25%] left-[60%] glass-panel p-4 rounded-xl border border-primary/30 shadow-2xl z-20 pointer-events-none">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/50">
+            <span class="material-symbols-outlined text-primary" data-weight="fill">bubble_chart</span>
+          </div>
+          <div>
+            <div class="text-[10px] font-label text-secondary font-bold uppercase tracking-widest">Node ID: 492</div>
+            <div class="text-sm font-headline font-bold text-on-surface">Momentum: 0.84</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- Footer Area (Condensed for Playground) -->
+  <footer class="fixed bottom-0 left-0 right-0 z-50 bg-[#090e1c] border-t border-[#434759]/15">
+    <div class="flex justify-between items-center h-10 px-6 max-w-7xl mx-auto">
+      <div class="flex gap-4">
+        <span class="font-label text-[10px] text-[#e1e4fa]/60 tracking-widest uppercase">FPS: 60.2</span>
+        <span class="font-label text-[10px] text-[#e1e4fa]/60 tracking-widest uppercase">Nodes: 150</span>
+        <span class="font-label text-[10px] text-[#e1e4fa]/60 tracking-widest uppercase">Heap: 12.4MB</span>
+      </div>
+      <div class="flex gap-6 items-center">
+        <a class="text-[10px] font-label uppercase text-[#e1e4fa]/60 hover:text-[#dd8bfb] transition-colors"
+          href="#">v2.4.0-alpha</a>
+        <a class="text-[10px] font-label uppercase text-[#e1e4fa]/60 hover:text-[#dd8bfb] transition-colors"
+          href="#">Report Issue</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuBtn = document.getElementById('menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+          mobileMenu.classList.toggle('flex');
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>

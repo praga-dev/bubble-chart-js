@@ -1,4 +1,5 @@
 node_modules/
 dist/
 *.html
+!docs/**/*.html
 commands.jsonc
