@@ -34,7 +34,7 @@ Scientific Research – Show relationships in grouped experimental data.
 
 Here’s an example of the bubble chart generated using this package:
 
-![Stacked Bubble Chart Example](https://github.com/Praga-Dev/bubbleChartJS/blob/HEAD/assets/bubble-chart.png)
+![Stacked Bubble Chart Example](https://github.com/praga-dev/bubble-chart-js/blob/HEAD/assets/bubble-chart.png)
 
 ## Installation
 
