@@ -1,0 +1,34 @@
+{
+  "specVersion": "1.0",
+  "tolerance": 1,
+  "nodes": [
+    {
+      "label": "A",
+      "x": 400,
+      "y": 300,
+      "radius": 120,
+      "fixed": true
+    },
+    {
+      "label": "B",
+      "x": 220.61,
+      "y": 462.39,
+      "radius": 120,
+      "fixed": false
+    },
+    {
+      "label": "C",
+      "x": 429.16,
+      "y": 125,
+      "radius": 120,
+      "fixed": false
+    },
+    {
+      "label": "D",
+      "x": 557.26,
+      "y": 475,
+      "radius": 120,
+      "fixed": false
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "specVersion": "1.0",
+  "tolerance": 1,
+  "nodes": [
+    {
+      "label": "Item 1",
+      "x": 400,
+      "y": 300,
+      "radius": 120,
+      "fixed": true
+    },
+    {
+      "label": "Item 2",
+      "x": 196.17,
+      "y": 483.4,
+      "radius": 111.6,
+      "fixed": false
+    },
+    {
+      "label": "Item 3",
+      "x": 447,
+      "y": 108.2,
+      "radius": 103.2,
+      "fixed": false
+    },
+    {
+      "label": "Item 4",
+      "x": 529.65,
+      "y": 469.88,
+      "radius": 94.8,
+      "fixed": false
+    },
+    {
+      "label": "Item 5",
+      "x": 201.83,
+      "y": 250.78,
+      "radius": 86.4,
+      "fixed": false
+    },
+    {
+      "label": "Item 6",
+      "x": 570.74,
+      "y": 206.71,
+      "radius": 78,
+      "fixed": false
+    },
+    {
+      "label": "Item 7",
+      "x": 371.14,
+      "y": 482.56,
+      "radius": 69.6,
+      "fixed": false
+    },
+    {
+      "label": "Item 8",
+      "x": 304.85,
+      "y": 152.82,
+      "radius": 61.2,
+      "fixed": false
+    },
+    {
+      "label": "Item 9",
+      "x": 562.52,
+      "y": 331.74,
+      "radius": 52.8,
+      "fixed": false
+    },
+    {
+      "label": "Item 10",
+      "x": 257.75,
+      "y": 362.86,
+      "radius": 44.4,
+      "fixed": false
+    }
+  ]
+}

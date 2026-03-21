@@ -1,0 +1,27 @@
+{
+  "specVersion": "1.0",
+  "tolerance": 1,
+  "nodes": [
+    {
+      "label": "Alpha",
+      "x": 400,
+      "y": 300,
+      "radius": 120,
+      "fixed": true
+    },
+    {
+      "label": "Beta",
+      "x": 256.6,
+      "y": 431.37,
+      "radius": 78,
+      "fixed": false
+    },
+    {
+      "label": "Gamma",
+      "x": 414.9,
+      "y": 130.26,
+      "radius": 57,
+      "fixed": false
+    }
+  ]
+}

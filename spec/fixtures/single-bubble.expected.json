@@ -1,0 +1,13 @@
+{
+  "specVersion": "1.0",
+  "tolerance": 1,
+  "nodes": [
+    {
+      "label": "Solo",
+      "x": 400,
+      "y": 300,
+      "radius": 120,
+      "fixed": true
+    }
+  ]
+}
