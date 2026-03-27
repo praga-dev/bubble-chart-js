@@ -6,6 +6,12 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>bubble-chart-js | High Performance Bubble Charts</title>
+    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+    <link rel="shortcut icon" href="favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Bubble" />
+    <link rel="manifest" href="favicon/site.webmanifest" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500&amp;family=Space+Grotesk:wght@500&amp;display=swap"
@@ -139,7 +145,7 @@
                 <button
                     class="material-symbols-outlined text-[#e1e4fa]/80 hover:text-[#72dcff] transition-colors">dark_mode</button>
                 <a class="bg-primary text-on-primary-fixed px-5 py-2 rounded-xl font-bold font-headline text-sm hover:scale-95 transition-all duration-200"
-                    href="https://github.com/praga-dev/bubble-chart-js" target="_blank" rel="noopener noreferrer">Get
+                    href="documentation.html" target="_blank" rel="noopener noreferrer">Get
                     Started</a>
             </div>
         </nav>
@@ -356,20 +362,25 @@
                         </div>
                         <div class="p-6 font-mono text-sm leading-relaxed overflow-x-auto">
                             <pre
-                                class="text-[#a6ffb5]">import <span class="text-secondary">{ BubbleChart }</span> from <span class="text-[#72dcff]">'bubble-chart-js'</span>;</pre>
+                                class="text-[#a6ffb5]">import <span class="text-secondary">{ initializeChart }</span> from <span class="text-[#72dcff]">'bubble-chart-js'</span>;</pre>
                             <pre
-                                class="mt-2 text-on-surface-variant"><span class="text-secondary">const</span> chart = <span class="text-secondary">new</span> <span class="text-primary">BubbleChart</span>({</pre>
+                                class="mt-2 text-on-surface-variant"><span class="text-secondary">const</span> chart = <span class="text-primary">initializeChart</span>({</pre>
                             <pre
-                                class="text-on-surface-variant">  container: <span class="text-[#72dcff]">'#viz'</span>,</pre>
+                                class="text-on-surface-variant">  canvasContainerId: <span class="text-[#72dcff]">'viz'</span>,</pre>
+                            <pre class="text-on-surface-variant">  data: data,</pre>
                             <pre
-                                class="text-on-surface-variant">  renderer: <span class="text-[#72dcff]">'canvas'</span>,</pre>
-                            <pre class="text-on-surface-variant">  physics: {</pre>
+                                class="text-on-surface-variant">  render: { mode: <span class="text-[#72dcff]">'canvas'</span> },</pre>
+                            <pre class="text-on-surface-variant">  layout: {</pre>
                             <pre
-                                class="text-on-surface-variant">    strength: <span class="text-tertiary">0.05</span>,</pre>
-                            <pre class="text-on-surface-variant">    padding: <span class="text-tertiary">2</span></pre>
+                                class="text-on-surface-variant">    type: <span class="text-[#72dcff]">'physics'</span>,</pre>
+                            <pre class="text-on-surface-variant">    physics: {</pre>
+                            <pre
+                                class="text-on-surface-variant">      centerStrength: <span class="text-tertiary">0.05</span>,</pre>
+                            <pre
+                                class="text-on-surface-variant">      collisionPad: <span class="text-tertiary">2</span></pre>
+                            <pre class="text-on-surface-variant">    }</pre>
                             <pre class="text-on-surface-variant">  }</pre>
                             <pre class="text-on-surface-variant">});</pre>
-                            <pre class="mt-4 text-on-surface-variant">chart.render(data);</pre>
                         </div>
                     </div>
                 </div>

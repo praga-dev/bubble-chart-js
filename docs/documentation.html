@@ -6,6 +6,12 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Documentation | bubble-chart-js</title>
+    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+    <link rel="shortcut icon" href="favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Bubble" />
+    <link rel="manifest" href="favicon/site.webmanifest" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap"
@@ -115,6 +121,14 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #434759;
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        section[id], div[id] {
+            scroll-margin-top: 5rem;
+        }
     </style>
 </head>
 
@@ -140,11 +154,6 @@
             <div class="flex items-center gap-4">
                 <button id="menu-btn"
                     class="md:hidden material-symbols-outlined text-[#e1e4fa] hover:text-[#72dcff] transition-colors">menu</button>
-                <button
-                    class="material-symbols-outlined text-[#e1e4fa] opacity-80 hover:text-[#72dcff] transition-colors">dark_mode</button>
-                <button
-                    class="bg-gradient-to-br from-primary to-primary-fixed-dim text-on-primary-fixed font-headline font-bold px-5 py-2 rounded-md active:scale-95 duration-200">Get
-                    Started</button>
             </div>
         </div>
     </header>
@@ -157,10 +166,10 @@
                     <h5 class="font-label text-xs uppercase tracking-widest text-primary mb-4">Getting Started</h5>
                     <ul class="space-y-3">
                         <li><a class="text-on-surface hover:text-secondary transition-colors text-sm font-medium"
-                                href="#">Introduction</a></li>
-                        <li><a class="text-primary font-bold transition-colors text-sm" href="#">Installation</a></li>
+                                href="#introduction">Introduction</a></li>
+                        <li><a class="text-primary font-bold transition-colors text-sm" href="#installation">Installation</a></li>
                         <li><a class="text-on-surface-variant hover:text-secondary transition-colors text-sm"
-                                href="#">Basic Usage</a></li>
+                                href="#basic-usage">Basic Usage</a></li>
                     </ul>
                 </div>
                 <div>
@@ -178,15 +187,15 @@
                     <h5 class="font-label text-xs uppercase tracking-widest text-primary mb-4">API Reference</h5>
                     <ul class="space-y-3">
                         <li><a class="text-on-surface-variant hover:text-secondary transition-colors text-sm"
-                                href="#">container</a></li>
+                                href="#api-container">container</a></li>
                         <li><a class="text-on-surface-variant hover:text-secondary transition-colors text-sm"
-                                href="#">data</a></li>
+                                href="#api-data">data</a></li>
                         <li><a class="text-on-surface-variant hover:text-secondary transition-colors text-sm"
-                                href="#">renderer</a></li>
+                                href="#api-renderer">renderer</a></li>
                         <li><a class="text-on-surface-variant hover:text-secondary transition-colors text-sm"
-                                href="#">physics</a></li>
+                                href="#api-physics">physics</a></li>
                         <li><a class="text-on-surface-variant hover:text-secondary transition-colors text-sm"
-                                href="#">seed</a></li>
+                                href="#api-seed">seed</a></li>
                     </ul>
                 </div>
                 <div>
@@ -209,7 +218,7 @@
         <!-- Main Content Area -->
         <main class="flex-1 px-8 md:px-12 py-10 max-w-4xl">
             <!-- Hero Breadcrumb/Intro -->
-            <div class="mb-12">
+            <div id="introduction" class="mb-12">
                 <div
                     class="flex items-center gap-2 text-on-surface-variant font-label text-xs uppercase mb-4 tracking-wider">
                     <span>Docs</span>
@@ -223,7 +232,7 @@
                 </p>
             </div>
             <!-- Installation Section -->
-            <section class="mb-16">
+            <section id="installation" class="mb-16">
                 <div class="flex items-center gap-4 mb-6">
                     <h2 class="font-headline text-2xl font-bold text-on-surface">Package Manager</h2>
                     <div class="h-px flex-1 bg-outline-variant/15"></div>
@@ -251,7 +260,7 @@
                 </div>
             </section>
             <!-- Basic Usage Section -->
-            <section class="mb-16">
+            <section id="basic-usage" class="mb-16">
                 <div class="flex items-center gap-4 mb-6">
                     <h2 class="font-headline text-2xl font-bold text-on-surface">Basic usage</h2>
                     <div class="h-px flex-1 bg-outline-variant/15"></div>
@@ -293,7 +302,7 @@ chart.render();</code></pre>
                 </div>
             </section>
             <!-- API Reference Table -->
-            <section class="mb-16">
+            <section id="api-reference" class="mb-16">
                 <div class="flex items-center gap-4 mb-8">
                     <h2 class="font-headline text-2xl font-bold text-on-surface">API Reference</h2>
                     <div class="h-px flex-1 bg-outline-variant/15"></div>
@@ -310,35 +319,35 @@ chart.render();</code></pre>
                             </tr>
                         </thead>
                         <tbody class="text-sm font-body">
-                            <tr class="border-b border-outline-variant/5 hover:bg-surface-bright/50 transition-colors">
+                            <tr id="api-container" class="border-b border-outline-variant/5 hover:bg-surface-bright/50 transition-colors">
                                 <td class="px-6 py-5 font-mono text-primary font-semibold">container</td>
                                 <td class="px-6 py-5 text-secondary">String | Element</td>
                                 <td class="px-6 py-5 text-on-surface-variant italic">null</td>
                                 <td class="px-6 py-5 text-on-surface">Selector or DOM element where the chart will
                                     mount.</td>
                             </tr>
-                            <tr class="border-b border-outline-variant/5 hover:bg-surface-bright/50 transition-colors">
+                            <tr id="api-data" class="border-b border-outline-variant/5 hover:bg-surface-bright/50 transition-colors">
                                 <td class="px-6 py-5 font-mono text-primary font-semibold">data</td>
                                 <td class="px-6 py-5 text-secondary">Array&lt;Object&gt;</td>
                                 <td class="px-6 py-5 text-on-surface-variant italic">[]</td>
                                 <td class="px-6 py-5 text-on-surface">The dataset to visualize. Requires 'id' and
                                     'value'.</td>
                             </tr>
-                            <tr class="border-b border-outline-variant/5 hover:bg-surface-bright/50 transition-colors">
+                            <tr id="api-renderer" class="border-b border-outline-variant/5 hover:bg-surface-bright/50 transition-colors">
                                 <td class="px-6 py-5 font-mono text-primary font-semibold">renderer</td>
                                 <td class="px-6 py-5 text-secondary">'canvas' | 'svg'</td>
                                 <td class="px-6 py-5 text-on-surface-variant italic">'canvas'</td>
                                 <td class="px-6 py-5 text-on-surface">The engine used for drawing. SVG recommended for
                                     &lt; 50 nodes.</td>
                             </tr>
-                            <tr class="border-b border-outline-variant/5 hover:bg-surface-bright/50 transition-colors">
+                            <tr id="api-physics" class="border-b border-outline-variant/5 hover:bg-surface-bright/50 transition-colors">
                                 <td class="px-6 py-5 font-mono text-primary font-semibold">physics</td>
                                 <td class="px-6 py-5 text-secondary">Object</td>
                                 <td class="px-6 py-5 text-on-surface-variant italic">{...}</td>
                                 <td class="px-6 py-5 text-on-surface">Configuration for the force-directed layout
                                     engine.</td>
                             </tr>
-                            <tr class="hover:bg-surface-bright/50 transition-colors">
+                            <tr id="api-seed" class="hover:bg-surface-bright/50 transition-colors">
                                 <td class="px-6 py-5 font-mono text-primary font-semibold">seed</td>
                                 <td class="px-6 py-5 text-secondary">Number | String</td>
                                 <td class="px-6 py-5 text-on-surface-variant italic">Date.now()</td>
@@ -372,11 +381,11 @@ chart.render();</code></pre>
             </h5>
             <ul class="space-y-4 border-l border-outline-variant/15 py-1">
                 <li class="pl-4 border-l-2 border-primary -ml-[1.5px]"><a class="text-sm text-primary"
-                        href="#">Installation</a></li>
+                        href="#installation">Installation</a></li>
                 <li class="pl-4"><a class="text-sm text-on-surface-variant hover:text-secondary transition-colors"
-                        href="#">Basic Usage</a></li>
+                        href="#basic-usage">Basic Usage</a></li>
                 <li class="pl-4"><a class="text-sm text-on-surface-variant hover:text-secondary transition-colors"
-                        href="#">API Reference</a></li>
+                        href="#api-reference">API Reference</a></li>
             </ul>
         </aside>
     </div>

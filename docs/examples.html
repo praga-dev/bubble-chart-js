@@ -5,6 +5,12 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+  <link rel="shortcut icon" href="favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="Bubble" />
+  <link rel="manifest" href="favicon/site.webmanifest" />
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap"
@@ -144,9 +150,12 @@
         <button id="menu-btn"
           class="md:hidden material-symbols-outlined text-[#e1e4fa] hover:text-[#72dcff] transition-colors">menu</button>
         <button class="material-symbols-outlined text-[#e1e4fa] opacity-80 hover:text-[#dd8bfb]">dark_mode</button>
-        <button
+        <a class="bg-primary text-on-primary-fixed px-5 py-2 rounded-xl font-bold font-headline text-sm hover:scale-95 transition-all duration-200"
+          href="documentation.html" target="_blank" rel="noopener noreferrer">Get
+          Started</a>
+        <!-- <button
           class="neon-gradient text-on-primary-fixed px-5 py-2 rounded-xl font-headline font-bold text-sm active:scale-95 duration-200 transition-all">Get
-          Started</button>
+          Started</button> -->
       </div>
     </div>
   </nav>
@@ -329,9 +338,14 @@
             <div class="flex gap-4">
               <button
                 class="neon-gradient text-on-primary-fixed px-6 py-3 rounded-lg font-headline font-bold transition-transform hover:scale-105">View
-                Example</button>
-              <button
-                class="px-6 py-3 rounded-lg border border-outline-variant/20 font-headline font-bold hover:bg-surface-bright transition-colors">Documentation</button>
+                Example
+              </button>
+              <a href="documentation.html">
+                <button
+                  class="px-6 py-3 rounded-lg border border-outline-variant/20 font-headline font-bold hover:bg-surface-bright transition-colors">
+                  Documentation
+                </button>
+              </a>
             </div>
           </div>
         </div>

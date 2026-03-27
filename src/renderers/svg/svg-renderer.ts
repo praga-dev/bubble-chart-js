@@ -219,7 +219,7 @@ export class SvgRenderer implements IRenderer {
       const r = b.renderRadius * b.renderScale;
 
       const glassOpts = this.config.render?.glassOptions;
-      const intensity = Math.min(1, Math.max(0, glassOpts?.glowIntensity ?? 0.65));
+      const intensity = Math.min(1, Math.max(0, glassOpts?.glowIntensity ?? 0.35));
       const outerStdDev = glassOpts?.blurRadius ?? 12;
       const innerStdDev = Math.max(2, Math.round(outerStdDev * 0.42));
 
@@ -386,9 +386,32 @@ export class SvgRenderer implements IRenderer {
   }
 
   private drawDebug(ctx: DrawContext, bubbles: ReadonlyArray<BubbleState>, state: RenderFrameState): void {
-    if (process.env.NODE_ENV === 'production' || !this.config.debug || !ctx.svg) return;
+    if (!this.config.debug || !ctx.svg) return;
 
     const opacity = this.config.debug.overlayOpacity ?? 0.55;
+    const svgEl = ctx.svg.ownerSVGElement ?? (ctx.svg as unknown as SVGSVGElement);
+    const w = svgEl ? parseFloat(svgEl.getAttribute('width') ?? '800') : 800;
+    const h = svgEl ? parseFloat(svgEl.getAttribute('height') ?? '600') : 600;
+
+    if (this.config.debug.showGrid) {
+      const step = 40;
+      for (let x = 0; x <= w; x += step) {
+        const line = document.createElementNS(NS, 'line') as SVGLineElement;
+        line.setAttribute('x1', String(x)); line.setAttribute('y1', '0');
+        line.setAttribute('x2', String(x)); line.setAttribute('y2', String(h));
+        line.setAttribute('stroke', 'rgba(114,220,255,0.25)');
+        line.setAttribute('stroke-width', '0.5');
+        ctx.svg.appendChild(line);
+      }
+      for (let y = 0; y <= h; y += step) {
+        const line = document.createElementNS(NS, 'line') as SVGLineElement;
+        line.setAttribute('x1', '0'); line.setAttribute('y1', String(y));
+        line.setAttribute('x2', String(w)); line.setAttribute('y2', String(y));
+        line.setAttribute('stroke', 'rgba(114,220,255,0.25)');
+        line.setAttribute('stroke-width', '0.5');
+        ctx.svg.appendChild(line);
+      }
+    }
 
     if (this.config.debug.showVelocityVectors) {
       const scale = 5;
@@ -405,6 +428,26 @@ export class SvgRenderer implements IRenderer {
       }
     }
 
+    if (this.config.debug.showCollisionPairs) {
+      for (let i = 0; i < bubbles.length; i++) {
+        for (let j = i + 1; j < bubbles.length; j++) {
+          const a = bubbles[i];
+          const bub = bubbles[j];
+          const dx = a.renderX - bub.renderX;
+          const dy = a.renderY - bub.renderY;
+          if (Math.sqrt(dx * dx + dy * dy) < a.renderRadius + bub.renderRadius + 20) {
+            const line = document.createElementNS(NS, 'line') as SVGLineElement;
+            line.setAttribute('x1', String(a.renderX)); line.setAttribute('y1', String(a.renderY));
+            line.setAttribute('x2', String(bub.renderX)); line.setAttribute('y2', String(bub.renderY));
+            line.setAttribute('stroke', 'rgba(255,100,100,0.6)');
+            line.setAttribute('stroke-width', '1');
+            line.setAttribute('opacity', String(opacity));
+            ctx.svg.appendChild(line);
+          }
+        }
+      }
+    }
+
     if (this.config.debug.showBubbleIds) {
       for (const b of bubbles) {
         const textEl = document.createElementNS(NS, 'text') as SVGTextElement;
@@ -413,6 +456,7 @@ export class SvgRenderer implements IRenderer {
         textEl.setAttribute('text-anchor', 'middle');
         textEl.setAttribute('fill', '#fff');
         textEl.setAttribute('font-size', '10');
+        textEl.setAttribute('font-family', 'monospace');
         textEl.setAttribute('opacity', String(opacity));
         textEl.textContent = b.id;
         ctx.svg.appendChild(textEl);

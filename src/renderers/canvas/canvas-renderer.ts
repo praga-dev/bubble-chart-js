@@ -284,35 +284,67 @@ export class CanvasRenderer implements IRenderer {
   }
 
   private drawDebug(ctx: DrawContext, bubbles: ReadonlyArray<BubbleState>, state: RenderFrameState): void {
-    // Tree-shaken in production by DefinePlugin + dead-code elimination
-    if (process.env.NODE_ENV !== 'production' && this.config.debug) {
-      if (!ctx.canvas) return;
-      const c = ctx.canvas;
-      const opacity = this.config.debug.overlayOpacity ?? 0.55;
-      c.globalAlpha = opacity;
+    if (!this.config.debug || !ctx.canvas) return;
+    const c = ctx.canvas;
+    const opacity = this.config.debug.overlayOpacity ?? 0.55;
+    const savedAlpha = c.globalAlpha;
+    c.globalAlpha = opacity;
 
-      if (this.config.debug.showVelocityVectors) {
-        for (const b of bubbles) {
-          const scale = 5;
-          c.beginPath();
-          c.moveTo(b.renderX, b.renderY);
-          c.lineTo(b.renderX + b.vx * scale, b.renderY + b.vy * scale);
-          c.strokeStyle = '#ff0';
-          c.lineWidth   = 2;
-          c.stroke();
-        }
+    if (this.config.debug.showGrid) {
+      const w = c.canvas.width;
+      const h = c.canvas.height;
+      const step = 40;
+      c.strokeStyle = 'rgba(114,220,255,0.25)';
+      c.lineWidth = 0.5;
+      c.beginPath();
+      for (let x = 0; x <= w; x += step) { c.moveTo(x, 0); c.lineTo(x, h); }
+      for (let y = 0; y <= h; y += step) { c.moveTo(0, y); c.lineTo(w, y); }
+      c.stroke();
+    }
+
+    if (this.config.debug.showVelocityVectors) {
+      c.lineWidth = 2;
+      for (const b of bubbles) {
+        const scale = 5;
+        c.beginPath();
+        c.moveTo(b.renderX, b.renderY);
+        c.lineTo(b.renderX + b.vx * scale, b.renderY + b.vy * scale);
+        c.strokeStyle = '#ff0';
+        c.stroke();
       }
+    }
 
-      if (this.config.debug.showBubbleIds) {
-        c.fillStyle  = '#fff';
-        c.font       = '10px monospace';
-        c.textAlign  = 'center';
-        c.textBaseline = 'top';
-        for (const b of bubbles) {
-          c.fillText(b.id, b.renderX, b.renderY - b.renderRadius - 12);
+    if (this.config.debug.showCollisionPairs) {
+      c.strokeStyle = 'rgba(255,100,100,0.6)';
+      c.lineWidth = 1;
+      for (let i = 0; i < bubbles.length; i++) {
+        for (let j = i + 1; j < bubbles.length; j++) {
+          const a = bubbles[i];
+          const bub = bubbles[j];
+          const dx = a.renderX - bub.renderX;
+          const dy = a.renderY - bub.renderY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < a.renderRadius + bub.renderRadius + 20) {
+            c.beginPath();
+            c.moveTo(a.renderX, a.renderY);
+            c.lineTo(bub.renderX, bub.renderY);
+            c.stroke();
+          }
         }
       }
     }
+
+    if (this.config.debug.showBubbleIds) {
+      c.fillStyle    = '#fff';
+      c.font         = '10px monospace';
+      c.textAlign    = 'center';
+      c.textBaseline = 'top';
+      for (const b of bubbles) {
+        c.fillText(b.id, b.renderX, b.renderY - b.renderRadius - 12);
+      }
+    }
+
+    c.globalAlpha = savedAlpha;
   }
 
   // ── Color utilities ────────────────────────────────────────────────────────

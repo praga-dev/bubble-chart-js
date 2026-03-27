@@ -5,16 +5,18 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Playground | bubble-chart-js</title>
+  <title>bubble-chart-js | Interactive Playground</title>
+  <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+  <link rel="shortcut icon" href="favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="Bubble" />
+  <link rel="manifest" href="favicon/site.webmanifest" />
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link
-    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;700&amp;display=swap"
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;700&display=swap"
     rel="stylesheet" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-    rel="stylesheet" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     rel="stylesheet" />
   <script id="tailwind-config">
     tailwind.config = {
@@ -22,57 +24,57 @@
       theme: {
         extend: {
           colors: {
-            "surface": "#090e1c",
-            "on-tertiary-container": "#005b29",
-            "on-error": "#490006",
-            "on-surface-variant": "#a6aabf",
-            "outline-variant": "#434759",
-            "surface-tint": "#72dcff",
-            "on-secondary-fixed": "#580078",
-            "surface-container": "#13192b",
-            "tertiary-fixed-dim": "#33ec7b",
-            "surface-container-highest": "#1e253b",
-            "error-container": "#9f0519",
-            "on-primary-fixed-variant": "#004c5e",
-            "on-tertiary-fixed-variant": "#00662e",
-            "inverse-surface": "#faf8ff",
-            "on-secondary-container": "#f1bfff",
-            "primary-fixed": "#00d2ff",
-            "on-surface": "#e1e4fa",
-            "secondary": "#dd8bfb",
-            "surface-variant": "#1e253b",
-            "primary-fixed-dim": "#00c3ed",
-            "surface-bright": "#242b43",
-            "on-primary-fixed": "#002c38",
-            "error-dim": "#d7383b",
-            "surface-dim": "#090e1c",
-            "on-secondary": "#4c0068",
-            "tertiary-dim": "#33ec7b",
-            "background": "#090e1c",
-            "secondary-dim": "#ce7eec",
             "inverse-on-surface": "#505466",
-            "secondary-fixed-dim": "#ebadff",
-            "inverse-primary": "#00687f",
-            "tertiary": "#a6ffb5",
-            "on-error-container": "#ffa8a3",
-            "on-tertiary-fixed": "#00461e",
-            "tertiary-container": "#49fb87",
-            "surface-container-high": "#181f33",
-            "error": "#ff716c",
-            "primary-dim": "#00c3ed",
-            "secondary-container": "#6e208c",
-            "on-tertiary": "#00652e",
-            "on-primary": "#004c5e",
-            "surface-container-low": "#0d1323",
-            "on-primary-container": "#004253",
-            "outline": "#707588",
-            "on-background": "#e1e4fa",
-            "surface-container-lowest": "#000000",
-            "primary-container": "#00d2ff",
+            "surface-tint": "#72dcff",
+            "on-primary-fixed": "#002c38",
             "on-secondary-fixed-variant": "#792c97",
-            "primary": "#72dcff",
+            "secondary-fixed-dim": "#ebadff",
+            "on-surface-variant": "#a6aabf",
+            "on-primary-fixed-variant": "#004c5e",
+            "background": "#090e1c",
+            "surface-variant": "#1e253b",
+            "primary-container": "#00d2ff",
+            "outline": "#707588",
+            "on-secondary-container": "#f1bfff",
+            "surface-container-highest": "#1e253b",
+            "on-tertiary-fixed": "#00461e",
+            "tertiary-dim": "#33ec7b",
+            "tertiary-container": "#49fb87",
+            "tertiary": "#a6ffb5",
+            "on-secondary-fixed": "#580078",
             "tertiary-fixed": "#49fb87",
-            "secondary-fixed": "#f2c1ff"
+            "on-background": "#e1e4fa",
+            "primary-fixed": "#00d2ff",
+            "secondary-container": "#6e208c",
+            "secondary": "#dd8bfb",
+            "on-tertiary-fixed-variant": "#00662e",
+            "primary-dim": "#00c3ed",
+            "primary-fixed-dim": "#00c3ed",
+            "error": "#ff716c",
+            "surface-dim": "#090e1c",
+            "on-surface": "#e1e4fa",
+            "inverse-primary": "#00687f",
+            "error-container": "#9f0519",
+            "surface-container": "#13192b",
+            "primary": "#72dcff",
+            "surface-container-lowest": "#000000",
+            "surface-container-high": "#181f33",
+            "surface-bright": "#242b43",
+            "outline-variant": "#434759",
+            "secondary-dim": "#ce7eec",
+            "inverse-surface": "#faf8ff",
+            "on-tertiary": "#00652e",
+            "secondary-fixed": "#f2c1ff",
+            "on-secondary": "#4c0068",
+            "error-dim": "#d7383b",
+            "on-primary-container": "#004253",
+            "on-tertiary-container": "#005b29",
+            "on-error-container": "#ffa8a3",
+            "tertiary-fixed-dim": "#33ec7b",
+            "surface-container-low": "#0d1323",
+            "on-primary": "#004c5e",
+            "surface": "#090e1c",
+            "on-error": "#490006"
           },
           fontFamily: {
             "headline": ["Manrope"],
@@ -85,27 +87,115 @@
     }
   </script>
   <style>
-    .glass-panel {
-      background: rgba(30, 37, 59, 0.6);
-      backdrop-filter: blur(12px);
-    }
-
     .material-symbols-outlined {
       font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     }
 
-    .code-shadow {
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    .glass-card {
+      background: rgba(30, 37, 59, 0.6);
+      backdrop-filter: blur(12px);
     }
 
-    /* Custom range slider styling */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #434759;
+      border-radius: 10px;
+    }
+
+    /* ── Info tooltip ─────────────────────────────────────────────────────── */
+    .tip {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      cursor: default;
+    }
+
+    .tip .tip-icon {
+      font-size: 13px;
+      line-height: 1;
+      color: #a6aabf;
+      opacity: 0.55;
+      transition: opacity 0.15s;
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+      pointer-events: none;
+    }
+
+    .tip:hover .tip-icon {
+      opacity: 1;
+      color: #72dcff;
+    }
+
+    .tip::after {
+      content: attr(data-tip);
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 8px);
+      transform: translateX(-50%);
+      width: 210px;
+      padding: 8px 10px;
+      background: #13192b;
+      border: 1px solid rgba(67, 71, 89, 0.6);
+      border-radius: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      line-height: 1.5;
+      color: #c8ccdf;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 400;
+      white-space: normal;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s, transform 0.15s;
+      z-index: 200;
+    }
+
+    .tip::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 2px);
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: rgba(67, 71, 89, 0.6);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s;
+      z-index: 201;
+    }
+
+    .tip:hover::after,
+    .tip:hover::before {
+      opacity: 1;
+    }
+
+    /* Flip tooltip to the right when label is near left edge */
+    .tip.tip-right::after {
+      left: 0;
+      transform: none;
+    }
+
+    .tip.tip-right::before {
+      left: 8px;
+      transform: none;
+    }
+
+    /* Range slider */
     input[type=range] {
       -webkit-appearance: none;
+      appearance: none;
       background: transparent;
     }
 
     input[type=range]::-webkit-slider-runnable-track {
-      width: 100%;
       height: 4px;
       background: #434759;
       border-radius: 2px;
@@ -113,233 +203,602 @@
 
     input[type=range]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      height: 16px;
-      width: 16px;
+      height: 14px;
+      width: 14px;
       border-radius: 50%;
       background: #72dcff;
-      margin-top: -6px;
-      box-shadow: 0 0 10px rgba(114, 220, 255, 0.5);
+      margin-top: -5px;
+      box-shadow: 0 0 8px rgba(114, 220, 255, 0.5);
+    }
+
+    /* Active tab underline */
+    .nav-tab-active {
+      color: #72dcff;
+      border-bottom: 2px solid #72dcff;
+    }
+
+    /* Panel tab active */
+    .panel-tab-active {
+      background: rgba(114, 220, 255, 0.12);
+      color: #72dcff;
+      border-left: 3px solid #72dcff;
+    }
+
+    #playground-canvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    #playground-canvas canvas,
+    #playground-canvas svg {
+      width: 100% !important;
+      height: 100% !important;
     }
   </style>
 </head>
 
-<body class="bg-background text-on-surface font-body overflow-hidden">
-  <!-- TopNavBar -->
-  <header class="fixed top-0 w-full z-50 bg-[#090e1c]/60 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
-    <nav class="flex justify-between items-center h-16 px-8 max-w-7xl mx-auto">
-      <div class="flex items-center gap-8">
-        <a href="index.html" class="flex items-center gap-2 hover:opacity-80 transition-opacity"><span
-            class="text-xl font-black text-[#72dcff] tracking-tighter font-headline">bubble-chart-js</span></a>
-        <div id="mobile-menu"
-          class="hidden md:flex flex-col md:flex-row absolute md:relative top-16 md:top-0 left-0 w-full md:w-auto bg-[#090e1c]/95 md:bg-transparent p-6 md:p-0 items-center gap-6 font-headline font-bold tracking-tight border-b md:border-none border-outline-variant/15 shadow-[0_20px_40px_rgba(0,0,0,0.4)] md:shadow-none">
-          <a class="text-[#e1e4fa] opacity-80 hover:text-[#dd8bfb] transition-colors duration-300"
-            href="documentation.html">Docs</a>
-          <a class="text-[#e1e4fa] opacity-80 hover:text-[#dd8bfb] transition-colors duration-300"
-            href="examples.html">Examples</a>
-          <a class="text-[#72dcff] border-b-2 border-[#72dcff] pb-1 hover:text-[#dd8bfb] transition-colors duration-300"
-            href="playground.html">Playground</a>
-          <a class="text-[#e1e4fa] opacity-80 hover:text-[#dd8bfb] transition-colors duration-300"
-            href="https://github.com/praga-dev/bubble-chart-js">GitHub</a>
-        </div>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30 overflow-hidden h-screen flex flex-col">
+
+  <!-- ── Top Nav ─────────────────────────────────────────────────────────── -->
+  <nav
+    class="fixed top-0 w-full z-50 flex justify-between items-center px-8 h-16 bg-[#090e1c]/60 backdrop-blur-xl shadow-2xl shadow-black/40">
+    <div class="flex items-center gap-2">
+      <span class="text-xl font-bold text-[#72dcff] tracking-tighter font-headline">bubble-chart-js</span>
+    </div>
+    <div class="hidden md:flex items-center gap-8 font-headline tracking-tight">
+      <a class="text-[#e1e4fa]/70 hover:text-[#dd8bfb] transition-colors" href="documentation.html">Docs</a>
+      <a class="text-[#e1e4fa]/70 hover:text-[#dd8bfb] transition-colors" href="examples.html">Examples</a>
+      <a class="text-[#72dcff] border-b-2 border-[#72dcff] pb-1" href="#">Playground</a>
+      <a class="text-[#e1e4fa]/70 hover:text-[#dd8bfb] transition-colors"
+        href="https://github.com/praga-dev/bubble-chart-js" target="_blank">GitHub</a>
+    </div>
+    <div class="flex items-center gap-4">
+      <button class="p-2 hover:bg-[#1e253b]/40 rounded-full transition-all">
+        <span class="material-symbols-outlined text-[#72dcff]">dark_mode</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="flex flex-1 pt-16 h-full overflow-hidden">
+
+    <!-- ── Side Nav ───────────────────────────────────────────────────────── -->
+    <aside
+      class="flex flex-col fixed left-0 top-0 h-full border-r border-[#434759]/15 bg-[#181f33] w-16 pt-20 z-40 md:w-64 transition-all duration-300">
+      <div class="px-6 mb-8 hidden md:block">
+        <h2 class="text-[#72dcff] font-bold font-headline">Configuration</h2>
+        <p class="font-label uppercase text-[0.75rem] opacity-50 tracking-widest">Live Editor</p>
       </div>
-      <div class="flex items-center gap-4">
-        <button id="menu-btn"
-          class="md:hidden material-symbols-outlined text-[#e1e4fa] hover:text-[#72dcff] transition-colors">menu</button>
-        <button class="p-2 text-[#e1e4fa] hover:text-[#dd8bfb] transition-colors">
-          <span class="material-symbols-outlined">dark_mode</span>
+      <nav class="flex flex-col gap-1" id="side-nav">
+        <!-- General tab -->
+        <button data-panel="general"
+          class="panel-tab-active flex items-center px-6 py-3 transition-all w-full text-left">
+          <span class="material-symbols-outlined mr-3">settings</span>
+          <span class="font-label uppercase text-[0.75rem] hidden md:inline">General</span>
         </button>
-        <button
-          class="bg-gradient-to-br from-primary to-primary-fixed-variant px-5 py-2 rounded-lg text-on-primary-fixed font-headline font-bold text-sm hover:shadow-[0_0_15px_rgba(114,220,255,0.4)] transition-all active:scale-95 duration-200">
-          Get Started
+        <!-- Data tab -->
+        <button data-panel="data"
+          class="text-[#e1e4fa]/50 hover:text-[#72dcff] hover:bg-[#1e253b] flex items-center px-6 py-3 transition-all w-full text-left">
+          <span class="material-symbols-outlined mr-3">database</span>
+          <span class="font-label uppercase text-[0.75rem] hidden md:inline">Data</span>
         </button>
-      </div>
-    </nav>
-  </header>
-  <main class="pt-16 h-screen flex flex-col md:flex-row">
-    <!-- Left: Config Editor -->
-    <section
-      class="w-full md:w-[450px] bg-surface-container border-r border-outline-variant/15 flex flex-col h-full z-10">
-      <!-- Header/Tabs -->
-      <div class="p-6 pb-2">
-        <span class="font-label text-xs uppercase tracking-[0.2em] text-secondary font-bold">Workspace</span>
-        <h1 class="text-2xl font-headline font-extrabold text-on-surface mt-1">Config Editor</h1>
-      </div>
-      <div class="flex-1 overflow-y-auto px-6 space-y-8 py-4 custom-scrollbar">
-        <!-- JSON Code Area -->
-        <div class="space-y-3">
-          <div class="flex justify-between items-center">
-            <span
-              class="font-label text-[10px] uppercase text-on-surface-variant tracking-widest">chart-config.json</span>
-            <span class="text-[10px] text-tertiary">Live Sync Active</span>
-          </div>
-          <div
-            class="bg-surface-container-lowest rounded-xl p-4 code-shadow font-mono text-sm leading-relaxed border border-outline-variant/10">
-            <div class="text-secondary">{</div>
-            <div class="pl-4">
-              <span class="text-primary">"renderer"</span>: <span class="text-tertiary">"canvas"</span>,
+        <!-- Presets tab -->
+        <button data-panel="presets"
+          class="text-[#e1e4fa]/50 hover:text-[#72dcff] hover:bg-[#1e253b] flex items-center px-6 py-3 transition-all w-full text-left">
+          <span class="material-symbols-outlined mr-3">auto_awesome</span>
+          <span class="font-label uppercase text-[0.75rem] hidden md:inline">Presets</span>
+        </button>
+        <!-- Debug tab -->
+        <button data-panel="debug"
+          class="text-[#e1e4fa]/50 hover:text-[#72dcff] hover:bg-[#1e253b] flex items-center px-6 py-3 transition-all w-full text-left">
+          <span class="material-symbols-outlined mr-3">bug_report</span>
+          <span class="font-label uppercase text-[0.75rem] hidden md:inline">Debug</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- ── Left Panel: Configuration ────────────────────────────────────── -->
+    <div
+      class="ml-16 md:ml-64 w-[420px] bg-surface-container-low flex flex-col border-r border-outline-variant/15 z-10 shadow-xl overflow-hidden flex-shrink-0">
+      <div class="flex-1 overflow-y-auto custom-scrollbar">
+
+        <!-- ═══ PANEL: General ═══ -->
+        <div id="panel-general" class="p-6 space-y-6">
+
+          <!-- Layout Section -->
+          <section>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-headline text-lg font-bold flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">grid_view</span> Layout
+              </h3>
             </div>
-            <div class="pl-4">
-              <span class="text-primary">"count"</span>: <span class="text-tertiary">150</span>,
+            <div class="space-y-4 pl-4 border-l border-outline-variant/30">
+              <!-- Simulation Mode toggle -->
+              <div class="space-y-2">
+                <div class="flex items-center gap-1.5">
+                  <label class="font-label text-[0.65rem] uppercase tracking-tighter opacity-70">Simulation Mode</label>
+                  <span class="tip"
+                    data-tip="Static: instantly positions bubbles using a force-settled spiral. Physics: runs a live force-directed simulation with collision, centering, and wall forces.">
+                    <span class="material-symbols-outlined tip-icon">info</span>
+                  </span>
+                </div>
+                <div class="flex p-1 bg-surface-container-highest rounded-lg gap-1">
+                  <button id="btn-layout-static"
+                    class="flex-1 py-1.5 text-xs font-bold rounded-md text-on-surface-variant hover:text-on-surface transition-all">Static</button>
+                  <button id="btn-layout-physics"
+                    class="flex-1 py-1.5 text-xs font-bold rounded-md bg-primary text-on-primary-fixed shadow-lg">Physics</button>
+                </div>
+              </div>
+              <!-- Node Spacing slider -->
+              <div class="space-y-2">
+                <div class="flex justify-between items-center">
+                  <div class="flex items-center gap-1.5">
+                    <label class="font-label text-[0.65rem] uppercase tracking-tighter opacity-70">Node Spacing</label>
+                    <span class="tip"
+                      data-tip="Maps to collisionPad in the physics layout. Adds extra padding (px) between bubble edges so they don't pack too tightly together.">
+                      <span class="material-symbols-outlined tip-icon">info</span>
+                    </span>
+                  </div>
+                  <span id="label-node-spacing" class="text-primary font-label text-xs">8px</span>
+                </div>
+                <input id="input-node-spacing"
+                  class="w-full bg-surface-container-highest h-1 rounded-full appearance-none cursor-pointer" max="40"
+                  min="0" type="range" value="8" />
+              </div>
             </div>
-            <div class="pl-4">
-              <span class="text-primary">"physics"</span>: {
+          </section>
+
+          <!-- Renderer Section -->
+          <section>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-headline text-lg font-bold flex items-center gap-2">
+                <span class="material-symbols-outlined text-secondary">layers</span> Renderer
+              </h3>
             </div>
-            <div class="pl-8">
-              <span class="text-primary">"gravity"</span>: <span class="text-tertiary">0.05</span>,
+            <div class="space-y-4 pl-4 border-l border-outline-variant/30">
+              <!-- Engine Type toggle -->
+              <div class="space-y-2">
+                <div class="flex items-center gap-1.5">
+                  <label class="font-label text-[0.65rem] uppercase tracking-tighter opacity-70">Engine Type</label>
+                  <span class="tip"
+                    data-tip="Auto: picks Canvas for >25 nodes, SVG otherwise. SVG: DOM-based, great for small datasets and CSS styling. Canvas: pixel-based, best performance for large node counts.">
+                    <span class="material-symbols-outlined tip-icon">info</span>
+                  </span>
+                </div>
+                <div class="flex p-1 bg-surface-container-highest rounded-lg gap-1">
+                  <button id="btn-engine-auto"
+                    class="flex-1 py-1.5 text-xs font-bold rounded-md text-on-surface-variant hover:text-on-surface transition-all">Auto</button>
+                  <button id="btn-engine-svg"
+                    class="flex-1 py-1.5 text-xs font-bold rounded-md text-on-surface-variant hover:text-on-surface transition-all">SVG</button>
+                  <button id="btn-engine-canvas"
+                    class="flex-1 py-1.5 text-xs font-bold rounded-md bg-secondary text-on-secondary-fixed shadow-lg">Canvas</button>
+                </div>
+              </div>
+              <!-- Renderer badge (live) -->
+              <div class="flex items-center gap-2">
+                <span class="font-label text-[0.6rem] uppercase opacity-50">Active renderer:</span>
+                <span id="label-renderer-type"
+                  class="font-label text-[0.6rem] text-secondary font-bold uppercase tracking-wider">Canvas 2D</span>
+              </div>
             </div>
-            <div class="pl-8">
-              <span class="text-primary">"friction"</span>: <span class="text-tertiary">0.98</span>
+          </section>
+
+          <!-- Bubbles Section -->
+          <section>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-headline text-lg font-bold flex items-center gap-2">
+                <span class="material-symbols-outlined text-tertiary">bubble_chart</span> Bubbles
+              </h3>
             </div>
-            <div class="pl-4 text-secondary">}</div>
-            <div class="text-secondary">}</div>
-          </div>
+            <div class="space-y-5 pl-4 border-l border-outline-variant/30">
+              <!-- Primary Color -->
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-1.5">
+                  <label class="font-label text-[0.65rem] uppercase tracking-tighter opacity-70">Primary Color</label>
+                  <span class="tip"
+                    data-tip="Sets the fallback bubbleColor for nodes that don't have their own color defined. Used for theming the config display and glow effects.">
+                    <span class="material-symbols-outlined tip-icon">info</span>
+                  </span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <input id="input-primary-color" type="color" value="#72dcff"
+                    class="w-8 h-8 rounded-full border-2 border-surface-bright cursor-pointer bg-transparent" />
+                </div>
+              </div>
+              <!-- Opacity slider -->
+              <div class="space-y-2">
+                <div class="flex justify-between items-center">
+                  <div class="flex items-center gap-1.5">
+                    <label class="font-label text-[0.65rem] uppercase tracking-tighter opacity-70">Opacity</label>
+                    <span class="tip"
+                      data-tip="Global fill opacity applied to every bubble via bubbleAppearance.opacity (0 = fully transparent, 1 = fully opaque). Per-bubble opacity in your data overrides this.">
+                      <span class="material-symbols-outlined tip-icon">info</span>
+                    </span>
+                  </div>
+                  <span id="label-opacity" class="text-tertiary font-label text-xs">0.35</span>
+                </div>
+                <input id="input-opacity"
+                  class="w-full bg-surface-container-highest h-1 rounded-full appearance-none cursor-pointer" max="1"
+                  min="0" step="0.01" type="range" value="0.35" />
+              </div>
+              <!-- Blur Effects toggle -->
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <label class="font-label text-[0.65rem] uppercase tracking-tighter opacity-70">Glass / Blur
+                      Effects</label>
+                    <span class="tip"
+                      data-tip="Switches render.theme from 'flat' to 'glass'. Glass theme adds backdrop blur, inner glow, and depth shading to each bubble using glassOptions.blurRadius and glowIntensity.">
+                      <span class="material-symbols-outlined tip-icon">info</span>
+                    </span>
+                  </div>
+                  <p class="font-label text-[0.6rem] opacity-40 mt-0.5">Switches to glass theme</p>
+                </div>
+                <input id="input-blur" checked
+                  class="w-5 h-5 rounded bg-surface-container-highest border-none text-primary focus:ring-primary/20 cursor-pointer"
+                  type="checkbox" />
+              </div>
+            </div>
+          </section>
+
         </div>
-        <!-- Control Panel Forms -->
-        <div class="glass-panel p-6 rounded-xl space-y-6">
-          <!-- Renderer Toggle -->
-          <div class="space-y-3">
-            <label class="font-label text-xs uppercase text-on-surface-variant font-bold">Renderer toggle</label>
-            <div class="grid grid-cols-2 bg-surface-container-highest p-1 rounded-lg">
-              <button
-                class="bg-primary text-on-primary-fixed text-xs font-bold py-2 rounded-md transition-all">SVG</button>
-              <button
-                class="text-on-surface-variant text-xs font-bold py-2 rounded-md hover:text-on-surface">Canvas</button>
-            </div>
+
+        <!-- ═══ PANEL: Data ═══ -->
+        <div id="panel-data" class="p-6 space-y-5 hidden">
+
+          <!-- Data stats row -->
+          <div class="flex items-center justify-between">
+            <h3 class="font-headline text-lg font-bold flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary">database</span> Data
+            </h3>
+            <span id="label-item-count" class="font-label text-[0.65rem] text-on-surface-variant">0 items
+              connected</span>
           </div>
-          <!-- Bubble Count Slider -->
-          <div class="space-y-3">
-            <div class="flex justify-between items-center">
-              <label class="font-label text-xs uppercase text-on-surface-variant font-bold">Bubble count</label>
-              <span class="text-xs font-mono text-primary">150</span>
+
+          <!-- JSON textarea editor -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-1.5">
+                <label class="font-label text-[0.6rem] uppercase tracking-widest opacity-50">JSON Editor</label>
+                <span class="tip"
+                  data-tip="Array of DataItem objects. Each item needs at least label and value. Optional fields: id, bubbleColor (#hex or rgba), opacity (0–1), icon (Material Symbol codepoint), iconFont.">
+                  <span class="material-symbols-outlined tip-icon">info</span>
+                </span>
+              </div>
+              <span class="font-label text-[0.6rem] text-tertiary opacity-60">Auto-syncs on valid JSON</span>
             </div>
-            <input class="w-full" max="500" min="10" type="range" value="150" />
+            <textarea id="data-editor" spellcheck="false"
+              class="w-full h-48 bg-surface-container-lowest rounded-lg p-3 font-mono text-[11px] text-tertiary border border-outline-variant/20 focus:border-primary/40 focus:outline-none resize-none custom-scrollbar"
+              placeholder='[{"label":"Alpha","value":80},{"label":"Beta","value":45}]'></textarea>
           </div>
-          <!-- Physics Toggle -->
-          <div class="flex justify-between items-center">
-            <label class="font-label text-xs uppercase text-on-surface-variant font-bold">Physics simulation</label>
-            <button class="relative inline-flex h-6 w-11 items-center rounded-full bg-primary">
+
+          <!-- Update / Reset buttons -->
+          <div class="grid grid-cols-2 gap-2">
+            <button id="btn-reset-demo"
+              class="flex items-center justify-center gap-1.5 bg-surface-variant hover:bg-surface-bright text-on-surface py-2 rounded-lg font-label text-xs uppercase tracking-tighter transition-all">
+              <span class="material-symbols-outlined text-sm">restart_alt</span> Reset
+            </button>
+            <button id="btn-update-chart"
+              class="flex items-center justify-center gap-1.5 bg-gradient-to-br from-primary to-primary-container text-on-primary-fixed hover:opacity-90 py-2 rounded-lg font-label font-bold text-xs uppercase tracking-tighter transition-all">
+              <span class="material-symbols-outlined text-sm">refresh</span> Update Chart
+            </button>
+          </div>
+
+          <!-- Data table -->
+          <div class="rounded-lg overflow-hidden border border-outline-variant/20">
+            <table class="w-full text-xs">
+              <thead class="bg-surface-container-highest">
+                <tr class="text-on-surface-variant font-label uppercase text-[0.6rem] tracking-widest">
+                  <th class="py-2 px-3 text-left">ID</th>
+                  <th class="py-2 px-3 text-left">Label</th>
+                  <th class="py-2 px-3 text-left">Value</th>
+                  <th class="py-2 px-3 text-center">Color</th>
+                  <th class="py-2 px-3"></th>
+                </tr>
+              </thead>
+              <tbody id="data-table-body" class="divide-y divide-outline-variant/10 text-on-surface/80">
+                <!-- rows injected by JS -->
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+        <!-- ═══ PANEL: Presets ═══ -->
+        <div id="panel-presets" class="p-6 space-y-4 hidden">
+          <h3 class="font-headline text-lg font-bold flex items-center gap-2">
+            <span class="material-symbols-outlined text-secondary">auto_awesome</span> Presets
+          </h3>
+          <p class="font-label text-[0.7rem] text-on-surface-variant opacity-70">
+            Apply a preset to instantly configure the chart with different visual styles and data sets.
+          </p>
+          <div class="space-y-3">
+
+            <button id="btn-preset-neon"
+              class="w-full flex items-center gap-4 p-4 bg-surface-container-highest hover:bg-surface-bright rounded-xl border border-primary/10 hover:border-primary/30 transition-all group">
+              <div
+                class="w-10 h-10 rounded-full bg-gradient-to-br from-[#72dcff]/60 to-transparent border border-[#72dcff]/40 flex-shrink-0">
+              </div>
+              <div class="text-left">
+                <p class="font-headline font-bold text-sm text-on-surface">Neon Observatory</p>
+                <p class="font-label text-[0.65rem] text-on-surface-variant mt-0.5">Physics · Canvas · Glass blur · 3
+                  nodes</p>
+              </div>
               <span
-                class="inline-block h-4 w-4 translate-x-6 transform rounded-full bg-on-primary-fixed transition"></span>
+                class="material-symbols-outlined text-primary ml-auto opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
             </button>
-          </div>
-          <!-- Theme Switch -->
-          <div class="space-y-3">
-            <label class="font-label text-xs uppercase text-on-surface-variant font-bold">Visual Theme</label>
-            <select
-              class="w-full bg-surface-container-highest border-none rounded-lg text-sm text-on-surface focus:ring-1 focus:ring-primary py-3">
-              <option>Neon Observatory (Default)</option>
-              <option>Atmospheric Depth</option>
-              <option>Midnight Terminal</option>
-            </select>
+
+            <button id="btn-preset-cyber"
+              class="w-full flex items-center gap-4 p-4 bg-surface-container-highest hover:bg-surface-bright rounded-xl border border-secondary/10 hover:border-secondary/30 transition-all group">
+              <div
+                class="w-10 h-10 rounded-full bg-gradient-to-br from-[#dd8bfb]/60 to-transparent border border-[#dd8bfb]/40 flex-shrink-0">
+              </div>
+              <div class="text-left">
+                <p class="font-headline font-bold text-sm text-on-surface">Cyber Grid</p>
+                <p class="font-label text-[0.65rem] text-on-surface-variant mt-0.5">Static · Canvas · Flat theme · 4
+                  nodes</p>
+              </div>
+              <span
+                class="material-symbols-outlined text-secondary ml-auto opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+            </button>
+
+            <button id="btn-preset-ghost"
+              class="w-full flex items-center gap-4 p-4 bg-surface-container-highest hover:bg-surface-bright rounded-xl border border-outline-variant/20 hover:border-on-surface/20 transition-all group">
+              <div
+                class="w-10 h-10 rounded-full bg-gradient-to-br from-white/20 to-transparent border border-white/20 flex-shrink-0">
+              </div>
+              <div class="text-left">
+                <p class="font-headline font-bold text-sm text-on-surface">Ghost Protocol</p>
+                <p class="font-label text-[0.65rem] text-on-surface-variant mt-0.5">Physics · SVG · Max blur · 4 nodes
+                </p>
+              </div>
+              <span
+                class="material-symbols-outlined text-on-surface-variant ml-auto opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+            </button>
+
+            <button id="btn-preset-dense"
+              class="w-full flex items-center gap-4 p-4 bg-surface-container-highest hover:bg-surface-bright rounded-xl border border-tertiary/10 hover:border-tertiary/30 transition-all group">
+              <div
+                class="w-10 h-10 rounded-full bg-gradient-to-br from-[#a6ffb5]/60 to-transparent border border-[#a6ffb5]/40 flex-shrink-0">
+              </div>
+              <div class="text-left">
+                <p class="font-headline font-bold text-sm text-on-surface">Dense Field</p>
+                <p class="font-label text-[0.65rem] text-on-surface-variant mt-0.5">Physics · Canvas · 100 random nodes
+                </p>
+              </div>
+              <span
+                class="material-symbols-outlined text-tertiary ml-auto opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+            </button>
+
           </div>
         </div>
-        <!-- Export Action -->
-        <button
-          class="w-full py-4 glass-panel border border-primary/20 rounded-xl text-primary font-headline font-bold text-sm flex items-center justify-center gap-2 hover:bg-primary/5 transition-all group">
-          <span class="material-symbols-outlined text-sm group-hover:rotate-45 transition-transform">send</span>
-          Export Implementation
-        </button>
-      </div>
-    </section>
-    <!-- Right: Live Chart Preview -->
-    <section class="flex-1 relative bg-surface-dim overflow-hidden flex items-center justify-center">
-      <!-- Background Gradients -->
-      <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute -top-1/4 -right-1/4 w-1/2 h-1/2 bg-primary/10 blur-[120px] rounded-full"></div>
-        <div class="absolute -bottom-1/4 -left-1/4 w-1/2 h-1/2 bg-secondary/10 blur-[120px] rounded-full"></div>
-      </div>
-      <!-- Floating Bubble Elements (Visual Mockup) -->
-      <div class="absolute inset-0 flex items-center justify-center p-12">
-        <div
-          class="relative w-full h-full glass-panel rounded-3xl overflow-hidden border border-outline-variant/10 shadow-[0_40px_80px_rgba(0,0,0,0.6)] flex items-center justify-center">
-          <!-- Decorative Mock Bubbles -->
-          <div
-            class="absolute w-24 h-24 rounded-full bg-gradient-to-br from-primary/40 to-transparent blur-sm border border-primary/30 top-[15%] left-[20%]">
-          </div>
-          <div
-            class="absolute w-40 h-40 rounded-full bg-gradient-to-br from-secondary/30 to-transparent blur-md border border-secondary/20 bottom-[10%] right-[15%]">
-          </div>
-          <div
-            class="absolute w-16 h-16 rounded-full bg-gradient-to-br from-tertiary/40 to-transparent blur-sm border border-tertiary/30 top-[60%] left-[45%]">
-          </div>
-          <div
-            class="absolute w-12 h-12 rounded-full bg-on-surface/5 backdrop-blur-md border border-on-surface/20 top-[40%] right-[30%]">
-          </div>
-          <div class="absolute w-32 h-32 rounded-full bg-primary-fixed-dim/20 blur-xl bottom-[40%] left-[10%]"></div>
-          <!-- Live Indicator -->
-          <div
-            class="absolute top-6 left-6 flex items-center gap-2 bg-surface-container-lowest/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-outline-variant/10">
-            <span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
-            <span class="font-label text-[10px] uppercase font-bold tracking-widest">Live Rendering</span>
-          </div>
-          <!-- Zoom Controls Overlay -->
-          <div class="absolute bottom-6 right-6 flex flex-col gap-2">
-            <button
-              class="w-10 h-10 glass-panel rounded-lg flex items-center justify-center hover:bg-surface-bright transition-colors border border-outline-variant/10">
-              <span class="material-symbols-outlined text-on-surface-variant">add</span>
-            </button>
-            <button
-              class="w-10 h-10 glass-panel rounded-lg flex items-center justify-center hover:bg-surface-bright transition-colors border border-outline-variant/10">
-              <span class="material-symbols-outlined text-on-surface-variant">remove</span>
-            </button>
-            <button
-              class="w-10 h-10 glass-panel rounded-lg flex items-center justify-center hover:bg-surface-bright transition-colors border border-outline-variant/10">
-              <span class="material-symbols-outlined text-on-surface-variant">refresh</span>
-            </button>
-          </div>
-          <!-- Empty Space for "Simulation" -->
-          <div class="text-center space-y-4">
-            <div class="font-headline font-black text-6xl text-on-surface/5 pointer-events-none select-none">
-              BUBBLE_CANVAS_v2
-            </div>
-            <p class="font-label text-on-surface-variant/40 tracking-[0.4em] uppercase text-xs">Awaiting data stream</p>
+
+        <!-- ═══ PANEL: Debug ═══ -->
+        <div id="panel-debug" class="p-6 space-y-5 hidden">
+          <h3 class="font-headline text-lg font-bold flex items-center gap-2">
+            <span class="material-symbols-outlined text-error">bug_report</span> Debug Overlays
+          </h3>
+          <p class="font-label text-[0.7rem] text-on-surface-variant opacity-70">
+            These overlays are rendered on top of the chart. Changes trigger a chart rebuild.
+          </p>
+          <div class="space-y-3 pl-4 border-l border-outline-variant/30">
+            <label class="flex items-center justify-between cursor-pointer">
+              <div class="flex items-center gap-1.5">
+                <span class="font-label text-xs uppercase tracking-tighter opacity-70">Show Grid</span>
+                <span class="tip"
+                  data-tip="Draws a 40px reference grid over the canvas. Useful for gauging bubble positions and layout spacing.">
+                  <span class="material-symbols-outlined tip-icon">info</span>
+                </span>
+              </div>
+              <input id="dbg-show-grid" type="checkbox"
+                class="w-4 h-4 text-primary rounded focus:ring-primary/20 cursor-pointer" />
+            </label>
+            <label id="dbg-velocity-row" class="flex items-center justify-between cursor-pointer">
+              <div class="flex items-center gap-1.5">
+                <span id="dbg-velocity-label"
+                  class="font-label text-xs uppercase tracking-tighter opacity-70 transition-opacity duration-200">Velocity
+                  Vectors</span>
+                <span class="tip"
+                  data-tip="Draws a yellow arrow from each bubble showing its current velocity direction and magnitude. Requires Physics simulation — automatically disabled when Static layout is selected, since there are no velocity values to display.">
+                  <span class="material-symbols-outlined tip-icon">info</span>
+                </span>
+              </div>
+              <input id="dbg-show-velocity" type="checkbox"
+                class="w-4 h-4 text-primary rounded focus:ring-primary/20 transition-opacity duration-200" />
+            </label>
+            <label class="flex items-center justify-between cursor-pointer">
+              <div class="flex items-center gap-1.5">
+                <span class="font-label text-xs uppercase tracking-tighter opacity-70">Collision Pairs</span>
+                <span class="tip"
+                  data-tip="Draws red lines between bubbles that are within collision range of each other (edge-to-edge distance < 20px). Helps visualise how tightly packed the layout is.">
+                  <span class="material-symbols-outlined tip-icon">info</span>
+                </span>
+              </div>
+              <input id="dbg-show-collision" type="checkbox"
+                class="w-4 h-4 text-primary rounded focus:ring-primary/20 cursor-pointer" />
+            </label>
+            <label class="flex items-center justify-between cursor-pointer">
+              <div class="flex items-center gap-1.5">
+                <span class="font-label text-xs uppercase tracking-tighter opacity-70">Bubble IDs</span>
+                <span class="tip"
+                  data-tip="Renders each bubble's id string above it. IDs are auto-derived from the label if not set explicitly in your data.">
+                  <span class="material-symbols-outlined tip-icon">info</span>
+                </span>
+              </div>
+              <input id="dbg-show-ids" type="checkbox"
+                class="w-4 h-4 text-primary rounded focus:ring-primary/20 cursor-pointer" />
+            </label>
           </div>
         </div>
+
       </div>
-      <!-- Tooltip Overlay (Interaction Mockup) -->
+
+      <!-- ── Bottom Bar: Config JSON + Actions ──────────────────────────── -->
       <div
-        class="absolute top-[25%] left-[60%] glass-panel p-4 rounded-xl border border-primary/30 shadow-2xl z-20 pointer-events-none">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/50">
-            <span class="material-symbols-outlined text-primary" data-weight="fill">bubble_chart</span>
+        class="p-5 bg-surface-container shadow-[0_-10px_30px_rgba(0,0,0,0.5)] border-t border-outline-variant/10 flex-shrink-0">
+        <!-- Config JSON preview -->
+        <div class="rounded-lg bg-surface-container-lowest p-4 mb-4 relative overflow-hidden group">
+          <div class="flex justify-between items-center mb-2">
+            <span
+              class="font-label text-[0.6rem] uppercase tracking-widest text-on-surface-variant/40">config.json</span>
+            <button id="btn-copy-config" class="text-primary opacity-0 group-hover:opacity-100 transition-opacity"
+              title="Copy config">
+              <span class="material-symbols-outlined text-sm">content_copy</span>
+            </button>
           </div>
-          <div>
-            <div class="text-[10px] font-label text-secondary font-bold uppercase tracking-widest">Node ID: 492</div>
-            <div class="text-sm font-headline font-bold text-on-surface">Momentum: 0.84</div>
-          </div>
+          <pre
+            class="text-[10px] font-mono text-tertiary overflow-x-auto custom-scrollbar max-h-28"><code id="config-json-display">{}</code></pre>
         </div>
-      </div>
-    </section>
-  </main>
-  <!-- Footer Area (Condensed for Playground) -->
-  <footer class="fixed bottom-0 left-0 right-0 z-50 bg-[#090e1c] border-t border-[#434759]/15">
-    <div class="flex justify-between items-center h-10 px-6 max-w-7xl mx-auto">
-      <div class="flex gap-4">
-        <span class="font-label text-[10px] text-[#e1e4fa]/60 tracking-widest uppercase">FPS: 60.2</span>
-        <span class="font-label text-[10px] text-[#e1e4fa]/60 tracking-widest uppercase">Nodes: 150</span>
-        <span class="font-label text-[10px] text-[#e1e4fa]/60 tracking-widest uppercase">Heap: 12.4MB</span>
-      </div>
-      <div class="flex gap-6 items-center">
-        <a class="text-[10px] font-label uppercase text-[#e1e4fa]/60 hover:text-[#dd8bfb] transition-colors"
-          href="#">v2.4.0-alpha</a>
-        <a class="text-[10px] font-label uppercase text-[#e1e4fa]/60 hover:text-[#dd8bfb] transition-colors"
-          href="#">Report Issue</a>
+        <!-- Action buttons -->
+        <div class="grid grid-cols-2 gap-3">
+          <span class="tip w-full"
+            data-tip="Downloads the current configuration as a bubble-chart-config.json file you can save and reuse.">
+            <button id="btn-export"
+              class="w-full bg-surface-variant hover:bg-surface-bright text-on-surface py-2.5 rounded-lg font-label text-xs uppercase tracking-tighter transition-all flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined text-sm">download</span> Export
+            </button>
+          </span>
+          <span class="tip w-full"
+            data-tip="Copies a ready-to-paste initializeChart() snippet to your clipboard — just swap in your container ID and drop it into your project.">
+            <button id="btn-implement"
+              class="w-full bg-gradient-to-br from-primary to-primary-container text-on-primary-fixed hover:opacity-90 py-2.5 rounded-lg font-label font-bold text-xs uppercase tracking-tighter transition-all flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined text-sm">rocket_launch</span> Implement
+            </button>
+          </span>
+        </div>
       </div>
     </div>
-  </footer>
 
+    <!-- ── Right Panel: Live Canvas ──────────────────────────────────────── -->
+    <div class="flex-1 relative bg-background overflow-hidden p-6 min-w-0">
+
+      <!-- Background orbs -->
+      <div
+        class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] pointer-events-none">
+      </div>
+      <div
+        class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-secondary/10 rounded-full blur-[100px] pointer-events-none">
+      </div>
+
+      <!-- Chart wrapper -->
+      <div class="w-full h-full glass-card rounded-2xl border border-outline-variant/10 relative overflow-hidden">
+
+        <!-- Top-left: Live badge -->
+        <div class="absolute top-5 left-5 z-10 flex items-center gap-3">
+          <div class="bg-error/20 text-error px-3 py-1 rounded-full flex items-center gap-2 animate-pulse">
+            <div class="w-1.5 h-1.5 rounded-full bg-error"></div>
+            <span class="font-label text-[0.65rem] font-bold tracking-widest uppercase">Live View</span>
+          </div>
+        </div>
+
+        <!-- Top-right: Renderer badge + zoom + refresh -->
+        <div class="absolute top-5 right-5 z-10 flex items-center gap-2">
+          <div
+            class="bg-surface-variant/80 backdrop-blur-md px-4 py-1.5 rounded-xl border border-outline-variant/20 flex items-center gap-2">
+            <span class="font-label text-[0.65rem] text-on-surface/60">Renderer:</span>
+            <span id="badge-renderer-type"
+              class="font-label text-[0.65rem] text-secondary font-bold uppercase tracking-wider">Canvas 2D</span>
+          </div>
+          <button id="btn-zoom-in"
+            class="w-8 h-8 glass-card rounded-lg flex items-center justify-center hover:bg-surface-bright transition-colors border border-outline-variant/20"
+            title="Zoom in">
+            <span class="material-symbols-outlined text-on-surface-variant text-sm">add</span>
+          </button>
+          <button id="btn-zoom-out"
+            class="w-8 h-8 glass-card rounded-lg flex items-center justify-center hover:bg-surface-bright transition-colors border border-outline-variant/20"
+            title="Zoom out">
+            <span class="material-symbols-outlined text-on-surface-variant text-sm">remove</span>
+          </button>
+          <button id="btn-refresh-chart"
+            class="w-8 h-8 glass-card rounded-lg flex items-center justify-center hover:bg-surface-bright transition-colors border border-outline-variant/20"
+            title="Rebuild chart">
+            <span class="material-symbols-outlined text-on-surface-variant text-sm">refresh</span>
+          </button>
+        </div>
+
+        <!-- The actual chart canvas container -->
+        <div id="playground-canvas" class="w-full h-full"></div>
+
+        <!-- Watermark -->
+        <div class="absolute inset-0 flex items-center justify-center opacity-[0.025] pointer-events-none select-none">
+          <h1 class="text-[10rem] font-headline font-black rotate-[-15deg]">BUBBLE</h1>
+        </div>
+
+        <!-- Status bar -->
+        <div
+          class="absolute bottom-0 w-full px-6 py-3 flex justify-between items-center bg-surface-container-lowest/30 backdrop-blur-md border-t border-outline-variant/10 z-10">
+          <div class="flex items-center gap-6">
+            <div class="flex items-center gap-2">
+              <span class="font-label text-[0.6rem] text-on-surface-variant uppercase tracking-widest">FPS</span>
+              <span id="stat-fps" class="font-mono text-xs text-tertiary font-bold">—</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="font-label text-[0.6rem] text-on-surface-variant uppercase tracking-widest">Nodes</span>
+              <span id="stat-nodes" class="font-mono text-xs text-on-surface">—</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="font-label text-[0.6rem] text-on-surface-variant uppercase tracking-widest">Heap</span>
+              <span id="stat-heap" class="font-mono text-xs text-on-surface">—</span>
+            </div>
+          </div>
+          <div>
+            <span
+              class="font-label text-[0.6rem] text-on-surface-variant uppercase tracking-widest opacity-40">v2.0.0</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ── Scripts ────────────────────────────────────────────────────────────── -->
+  <!-- bubble-chart-js library (UMD — exposes window.initializeChart) -->
+  <script src="../dist/bubbleChart.umd.js"></script>
+
+  <!-- Inline helpers used by playground-interactive.js -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const menuBtn = document.getElementById('menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      if (menuBtn && mobileMenu) {
-        menuBtn.addEventListener('click', () => {
-          mobileMenu.classList.toggle('hidden');
-          mobileMenu.classList.toggle('flex');
+      // Side-nav panel switching
+      (function () {
+        const panels = { general: null, data: null, presets: null, debug: null };
+        Object.keys(panels).forEach(key => { panels[key] = document.getElementById('panel-' + key); });
+
+        function showPanel(name) {
+          Object.keys(panels).forEach(k => {
+            panels[k].classList.toggle('hidden', k !== name);
+          });
+          document.querySelectorAll('#side-nav button[data-panel]').forEach(btn => {
+            const active = btn.dataset.panel === name;
+            btn.classList.toggle('panel-tab-active', active);
+            btn.classList.toggle('text-[#e1e4fa]/50', !active);
+            btn.classList.toggle('hover:text-[#72dcff]', !active);
+            btn.classList.toggle('hover:bg-[#1e253b]', !active);
+          });
+        }
+
+        document.querySelectorAll('#side-nav button[data-panel]').forEach(btn => {
+          btn.addEventListener('click', () => showPanel(btn.dataset.panel));
         });
-      }
+      })();
+
+    // activateDataSource — switches to the Data panel (called by playground-interactive.js after preset apply)
+    function activateDataSource() {
+      const dataBtn = document.querySelector('#side-nav button[data-panel="data"]');
+      if (dataBtn) dataBtn.click();
+    }
+
+    // Debug checkbox wiring — rebuilds chart whenever any debug toggle changes
+    // playground-interactive.js reads state.debug from these checkboxes before each rebuild
+    document.addEventListener('DOMContentLoaded', () => {
+      ['dbg-show-grid', 'dbg-show-velocity', 'dbg-show-collision', 'dbg-show-ids'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('change', () => {
+          if (typeof rebuildChart === 'function') rebuildChart();
+        });
+      });
     });
   </script>
+
+  <!-- Interactive playground controller -->
+  <script src="playground-interactive.js"></script>
 </body>
 
 </html>
