@@ -1,6 +1,6 @@
 {
   "name": "bubble-chart-js",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "bubbleChartJs is a lightweight, customizable JavaScript library for creating stacked bubble charts. It arranges bubbles based on their values, with the largest bubble positioned at the top and surrounding bubbles decreasing in size accordingly.",
   "main": "dist/bubbleChart.cjs.js",
   "module": "dist/bubbleChart.esm.js",
@@ -38,6 +38,7 @@
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.1"
   },
+  "homepage": "https://praga-dev.github.io/bubble-chart-js/",
   "author": "Pragadeeshwaran Pasupathi <pragadeeshwaran.pasupathi@gmail.com>",
   "repository": {
     "type": "git",
