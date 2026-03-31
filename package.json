@@ -8,6 +8,11 @@
   "unpkg": "dist/bubbleChart.umd.js",
   "jsdelivr": "dist/bubbleChart.umd.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist/",
+    "README.md",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && webpack --mode production",
