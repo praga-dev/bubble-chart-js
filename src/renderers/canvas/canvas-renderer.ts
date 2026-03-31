@@ -344,6 +344,19 @@ export class CanvasRenderer implements IRenderer {
       }
     }
 
+    if (this.config.debug.showHitRadius) {
+      c.strokeStyle = 'rgba(255,220,0,0.9)';
+      c.lineWidth   = 1.5;
+      c.setLineDash([4, 3]);
+      for (const b of bubbles) {
+        const r = b.renderRadius * b.renderScale;
+        c.beginPath();
+        c.arc(b.renderX, b.renderY, r, 0, Math.PI * 2);
+        c.stroke();
+      }
+      c.setLineDash([]);
+    }
+
     c.globalAlpha = savedAlpha;
   }
 

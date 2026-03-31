@@ -58,7 +58,11 @@ export class DomInteractionHandler implements IInteractionHandler {
   }
 
   private hitTest(x: number, y: number): BubbleState | null {
-    for (const b of this.bubbles) {
+    // Iterate in reverse so the topmost (last-rendered) bubble wins when stacked.
+    // Skip fully-transparent bubbles — they are visually invisible and non-interactive.
+    for (let i = this.bubbles.length - 1; i >= 0; i--) {
+      const b = this.bubbles[i];
+      if (b.opacity === 0) continue;
       const r = b.renderRadius * b.renderScale;
       if (Math.hypot(x - b.renderX, y - b.renderY) <= r) return b;
     }

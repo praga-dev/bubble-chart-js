@@ -145,30 +145,23 @@ export class ChartOrchestrator {
     // ── Tooltip ─────────────────────────────────────────────────────────────
     if (config.interaction?.tooltipEnabled !== false && config.showToolTip !== false) {
       this.tooltip = new DomTooltip(container, this.instanceId, config);
+
+      // DomInteractionHandler is the single source of truth for which bubble is hovered.
+      // Track the currently hovered item so the pointermove listener can reposition
+      // the tooltip on every move within the same bubble (onHover only fires on change).
+      let hoveredItem: DataItem | null = null;
       this.interaction.onHover((item) => {
-        if (!item) {
-          this.tooltip?.hide();
-        }
+        hoveredItem = item;
+        if (!item) this.tooltip?.hide();
       });
 
-      // Direct pointermove listener for tooltip positioning
       const surfaceForTooltip = container.querySelector('canvas, svg') as HTMLElement | null;
       if (surfaceForTooltip) {
         surfaceForTooltip.addEventListener('pointermove', (e: Event) => {
           const pe = e as PointerEvent;
-          const rect = surfaceForTooltip.getBoundingClientRect();
-          const x = pe.clientX - rect.left;
-          const y = pe.clientY - rect.top;
-          // Find hovered bubble
-          for (const b of this.bubbles) {
-            const r = b.renderRadius * b.renderScale;
-            if (Math.hypot(x - b.renderX, y - b.renderY) <= r) {
-              const item: DataItem = { id: b.id, label: b.label, value: b.value, bubbleColor: b.color };
-              this.tooltip?.show(item, pe.clientX, pe.clientY, config);
-              return;
-            }
+          if (hoveredItem) {
+            this.tooltip?.show(hoveredItem, pe.clientX, pe.clientY, config);
           }
-          this.tooltip?.hide();
         });
       }
     }

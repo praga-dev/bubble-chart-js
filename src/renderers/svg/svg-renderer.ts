@@ -42,7 +42,6 @@ export class SvgRenderer implements IRenderer {
       top: '0',
       left: '0',
       overflow: 'visible',
-      padding: '15px',
     });
     this.svgEl.setAttribute('viewBox', `0 0 ${this.width} ${this.height}`);
 
@@ -460,6 +459,21 @@ export class SvgRenderer implements IRenderer {
         textEl.setAttribute('opacity', String(opacity));
         textEl.textContent = b.id;
         ctx.svg.appendChild(textEl);
+      }
+    }
+
+    if (this.config.debug.showHitRadius) {
+      for (const b of bubbles) {
+        const r = b.renderRadius * b.renderScale;
+        const circle = document.createElementNS(NS, 'circle') as SVGCircleElement;
+        circle.setAttribute('cx', String(b.renderX));
+        circle.setAttribute('cy', String(b.renderY));
+        circle.setAttribute('r', String(r));
+        circle.setAttribute('fill', 'none');
+        circle.setAttribute('stroke', 'rgba(255,220,0,0.9)');
+        circle.setAttribute('stroke-width', '1.5');
+        circle.setAttribute('stroke-dasharray', '4 3');
+        ctx.svg.appendChild(circle);
       }
     }
   }

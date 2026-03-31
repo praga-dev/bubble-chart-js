@@ -99,6 +99,11 @@ export interface DebugConfig {
   showBubbleIds?: boolean;
   /** Opacity of debug overlay layer. Default: 0.55 */
   overlayOpacity?: number;
+  /**
+   * Draw the exact hit-test radius ring for each bubble.
+   * Useful for verifying hover detection accuracy.
+   */
+  showHitRadius?: boolean;
 }
 
 // ── V1 backward-compat sub-configs ─────────────────────────────────────────
