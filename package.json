@@ -1,6 +1,6 @@
 {
   "name": "bubble-chart-js",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "bubbleChartJs is a lightweight, customizable JavaScript library for creating stacked bubble charts. It arranges bubbles based on their values, with the largest bubble positioned at the top and surrounding bubbles decreasing in size accordingly.",
   "main": "dist/bubbleChart.cjs.js",
   "module": "dist/bubbleChart.esm.js",
