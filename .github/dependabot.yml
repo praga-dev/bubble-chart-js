@@ -1,0 +1,45 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Kolkata"
+    # Only open PRs for devDependencies — this package has zero runtime deps.
+    # Production-dependency PRs would be a breaking change by definition.
+    groups:
+      typescript-toolchain:
+        patterns:
+          - "typescript"
+          - "ts-*"
+          - "@typescript-eslint/*"
+      jest:
+        patterns:
+          - "jest"
+          - "@types/jest"
+          - "ts-jest"
+      webpack:
+        patterns:
+          - "webpack"
+          - "webpack-*"
+      linting:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "prettier"
+          - "eslint-config-prettier"
+          - "eslint-plugin-prettier"
+    # Limit concurrent PRs to avoid noise — one group at a time is enough.
+    open-pull-requests-limit: 4
+    # Never auto-merge major version bumps — they may require migration work.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    labels:
+      - "dependencies"
+      - "automated"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
